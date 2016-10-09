@@ -1,0 +1,35 @@
+{
+  "name": "express-mongo-bootstrap",
+  "version": "1.0.0",
+  "description": "Express app / mongodb",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/techmagic-team/express-mongo-bootstrap.git"
+  },
+  "keywords": [
+    "express",
+    "mongodb"
+  ],
+  "author": {
+    "name": "Ihor Fito",
+    "email": "ihor.fito@techmagic.co"
+  },
+  "bugs": {
+    "url": "https://github.com/techmagic-team/express-mongo-bootstrap/issues"
+  },
+  "homepage": "https://github.com/techmagic-team/express-mongo-bootstrap#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.6.3",
+    "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "apidoc": "^0.16.1"
+  }
+}
