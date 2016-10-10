@@ -59,3 +59,4 @@ _thumbs/
 */expressionengine/cache/*
 
 .idea
+.idea/
