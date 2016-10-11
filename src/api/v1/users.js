@@ -1,6 +1,7 @@
 "use strict";
-var express = require('express');
-var router = express.Router();
+
+const express = require('express');
+const router = express.Router();
 
 /**
  * @api {get} /users GET users listing.
@@ -9,7 +10,7 @@ var router = express.Router();
  *
  * @apiSuccess {object[]} List of users.
  */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
 
 });
 
@@ -23,7 +24,7 @@ router.get('/', function(req, res, next) {
  * @apiSuccess {String} user.firstname Firstname of the User.
  * @apiSuccess {String} user.lastname  Lastname of the User.
  */
-router.get('/:id', function(req, res, next) {
+router.get('/:id', (req, res, next) => {
 
 });
 
@@ -37,7 +38,7 @@ router.get('/:id', function(req, res, next) {
  * @apiSuccess {String} firstname Firstname of the User.
  * @apiSuccess {String} lastname  Lastname of the User.
  */
-router.post('/', function(req, res, next) {
+router.post('/', (req, res, next) => {
 
 });
 
@@ -52,7 +53,7 @@ router.post('/', function(req, res, next) {
  * @apiSuccess {String} firstname Firstname of the User.
  * @apiSuccess {String} lastname  Lastname of the User.
  */
-router.put('/:id', function(req, res, next) {
+router.put('/:id', (req, res, next) => {
 
 });
 
@@ -67,7 +68,7 @@ router.put('/:id', function(req, res, next) {
  * @apiSuccess {String} firstname Firstname of the User.
  * @apiSuccess {String} lastname  Lastname of the User.
  */
-router.patch('/', function(req, res, next) {
+router.patch('/', (req, res, next) => {
 
 });
 
@@ -81,7 +82,7 @@ router.patch('/', function(req, res, next) {
  * @apiSuccess {String} firstname Firstname of the User.
  * @apiSuccess {String} lastname  Lastname of the User.
  */
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', (req, res, next) => {
 
 });
 module.exports = router;

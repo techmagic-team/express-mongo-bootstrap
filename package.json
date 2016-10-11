@@ -5,6 +5,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
+    "start": "node ./src/"
     "test": "test"
   },
   "repository": {
