@@ -3,6 +3,8 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../../../src/index');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
 chai.should();
 chai.use(chaiHttp);
