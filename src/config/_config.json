@@ -1,0 +1,8 @@
+{
+  "test": {
+    "database": "mongodb://localhost/node-test"
+  },
+  "development": {
+    "database": "mongodb://localhost/node-testing"
+  }
+}

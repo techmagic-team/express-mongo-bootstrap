@@ -11,7 +11,7 @@ const router = express.Router();
  * @apiSuccess {object[]} List of users.
  */
 router.get('/', (req, res, next) => {
-
+  res.sendStatus(200);
 });
 
 /**
