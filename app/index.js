@@ -4,7 +4,7 @@ const express = require('express');
 const http = require('http');
 const mongoose = require('mongoose');
 const path = require('path');
-const apiV1 = require('./api/v1');
+const apiV1 = require('./api/v1/controllers');
 const env = process.env.NODE_ENV || 'development';
 const _config = require('./config/_config.json')[env];
 

@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const daoUser = require('../../dao/user');
+const daoUser = require('./../dao/user');
 
 /**
  * @api {get} /users.json GET users.json listing.
@@ -17,7 +17,7 @@ router.get('/', (req, res, next) => {
       res.json(users);
     })
     .catch((err) => {
-      res.json(err);
+      next(err);
     });
 });
 
@@ -37,7 +37,7 @@ router.get('/:id', (req, res, next) => {
       res.json(user);
     })
     .catch((err) => {
-      res.json(err);
+      next(err);
     });
 });
 
@@ -57,7 +57,7 @@ router.post('/', (req, res, next) => {
       res.json(user);
     })
     .catch((err) => {
-      res.json(err);
+      next(err);
     });
 });
 
@@ -78,7 +78,7 @@ router.put('/:id', (req, res, next) => {
       res.json(user);
     })
     .catch((err) => {
-      res.json(err);
+      next(err);
     });
 });
 
@@ -99,7 +99,7 @@ router.patch('/:id', (req, res, next) => {
       res.json(user);
     })
     .catch((err) => {
-      res.json(err);
+      next(err);
     });
 });
 
@@ -119,7 +119,7 @@ router.delete('/:id', (req, res, next) => {
       res.sendStatus(204);
     })
     .catch((err) => {
-      res.json(err);
+      next(err);
     });
 });
 module.exports = router;
