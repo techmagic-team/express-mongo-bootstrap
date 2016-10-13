@@ -23,5 +23,5 @@ module.exports.modify = (id, data) => {
 };
 
 module.exports.delete = (id) => {
-  return userModel.remove({id: id}, true);
+  return userModel.remove({id: id});
 };

@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node ./src/",
     "test": "NODE_ENV=test mocha test/** --recursive",
-    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/** --recursive",
+    "cover": "NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/** --recursive",
     "jslinter": "eslint src/**/*.js test/**/*.js",
     "postinstall": "cp git-hooks/pre-commit .git/hooks/ && chmod +x .git/hooks/pre-commit"
   },

@@ -114,6 +114,12 @@ router.patch('/:id', (req, res, next) => {
  * @apiSuccess {String} lastname  Lastname of the User.
  */
 router.delete('/:id', (req, res, next) => {
-
+  daoUser.delete(req.params.id)
+    .then(() => {
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 });
 module.exports = router;

@@ -11,7 +11,7 @@ const _config = require('./config/_config.json')[env];
 const app = express();
 
 // db connect
-mongoose.set('debug', true);
+mongoose.set('debug', false);
 mongoose.Promise = global.Promise;
 mongoose.connect(_config.database, (err) => {
   if (err) {

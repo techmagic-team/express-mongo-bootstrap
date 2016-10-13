@@ -76,16 +76,36 @@ describe('Users API v1', () => {
   describe('PATCH /users/:id', () => {
     it('should update a SINGLE blob on /users/:id PATCH', (done) => {
       chai.request(server)
-        .get('/v1/users/57fe2450916165b0b8b20be2')
+        .patch('/v1/users/57fe2450916165b0b8b20be2')
+        .send({
+          email: 'testemail1@testemail.com',
+          fistName: 'fistName',
+          lastName: 'lastName'
+        })
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.an('object');
           res.body.should.have.property('email');
+          res.body.email.should.be.equal('testemail1@testemail.com');
+          res.body.should.have.property('fistName');
+          res.body.fistName.should.be.equal('fistName');
+          res.body.should.have.property('lastName');
+          res.body.lastName.should.be.equal('lastName');
+          res.body.password.should.be.equal('');
           done();
         });
     });
   });
   describe('DELETE /users/:id', () => {
-    it('should delete a SINGL on /users/:id DELETE');
+    it('should delete a SINGLE user on /users/:id DELETE', (done) => {
+      chai.request(server)
+        .delete('/v1/users/57fe2450916165b0b8b20be2')
+        .end((err, res) => {
+          res.should.have.status(204);
+          res.body.should.be.empty;
+          done();
+        });
+    });
   });
+
 });
