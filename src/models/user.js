@@ -1,12 +1,13 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const cryptPassword = require('../utils').cryptPassword;
+//const cryptPassword = require('../utils').cryptPassword;
 
 const Schema = mongoose.Schema;
 
 const user = new Schema({
-  name: {type: String, trim: true, default: ''},
+  firstname: {type: String, trim: true, default: ''},
+  lastname: {type: String, trim: true, default: ''},
   email: {
     type: String,
     trim: true,
@@ -15,20 +16,15 @@ const user = new Schema({
     required: true,
     default: ''
   },
-  password: {type: String, default: '', set: cryptPassword},
+  password: {type: String, default: ''},
 }, {
   collection: 'users',
-  _id: true,
-  versionKey: false
+  _id: true
 });
 
 user.path('email').validate((value) => {
   const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/;
   return emailRegex.test(value);
 }, 'Please fill a valid email address');
-
-user.methods.authenticate = (password) => {
-  return this.password === cryptPassword(password);
-};
 
 module.exports = mongoose.model('user', user);

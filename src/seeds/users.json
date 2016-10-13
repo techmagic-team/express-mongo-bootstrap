@@ -1,0 +1,19 @@
+{
+  "model": "user",
+  "collection": [
+    {
+      "_id": "57fe2450916165b0b8b20be2",
+      "firstName": "Jon",
+      "lastName": "Doe",
+      "email": "john.doe1@awesome.com",
+      "password": "qwerty"
+    },
+    {
+      "_id": "57fe2450916165b0b8b20be3",
+      "firstName": "Jon",
+      "lastName": "Doe",
+      "email": "john.doe2@awesome.com",
+      "password": "qwerty"
+    }
+  ]
+}

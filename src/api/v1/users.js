@@ -1,17 +1,24 @@
-"use strict";
+'use strict';
 
 const express = require('express');
 const router = express.Router();
+const daoUser = require('../../dao/user');
 
 /**
- * @api {get} /users GET users listing.
+ * @api {get} /users.json GET users.json listing.
  * @apiName GetUsers
  * @apiGroup Users
  *
- * @apiSuccess {object[]} List of users.
+ * @apiSuccess {object[]} List of users.json.
  */
 router.get('/', (req, res, next) => {
-  res.sendStatus(200);
+  return daoUser.findAll()
+    .then((users) => {
+      res.json(users);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 });
 
 /**
@@ -25,7 +32,13 @@ router.get('/', (req, res, next) => {
  * @apiSuccess {String} user.lastname  Lastname of the User.
  */
 router.get('/:id', (req, res, next) => {
-
+  daoUser.findOne(req.params.id)
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 });
 
 /**
@@ -39,7 +52,13 @@ router.get('/:id', (req, res, next) => {
  * @apiSuccess {String} lastname  Lastname of the User.
  */
 router.post('/', (req, res, next) => {
-
+  daoUser.create(req.body)
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 });
 
 /**
@@ -54,7 +73,13 @@ router.post('/', (req, res, next) => {
  * @apiSuccess {String} lastname  Lastname of the User.
  */
 router.put('/:id', (req, res, next) => {
-
+  daoUser.update(req.params.id, req.body)
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 });
 
 /**
@@ -68,8 +93,14 @@ router.put('/:id', (req, res, next) => {
  * @apiSuccess {String} firstname Firstname of the User.
  * @apiSuccess {String} lastname  Lastname of the User.
  */
-router.patch('/', (req, res, next) => {
-
+router.patch('/:id', (req, res, next) => {
+  daoUser.modify(req.params.id, req.body)
+    .then((user) => {
+      res.json(user);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 });
 
 /**

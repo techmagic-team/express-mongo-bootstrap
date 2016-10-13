@@ -1,8 +1,10 @@
 {
   "test": {
-    "database": "mongodb://localhost/node-test"
+    "database": "mongodb://localhost:27017/node-test",
+    "seedDB": true
   },
   "development": {
-    "database": "mongodb://localhost/node-testing"
+    "database": "mongodb://localhost:27017/node-testing",
+    "seedDb": false
   }
 }
