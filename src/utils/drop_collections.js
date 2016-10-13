@@ -14,6 +14,9 @@ const Helpers = (mongoose) => {
       });
     }, callback);
   };
+  return this.dropCollections(() => {
+    return true;
+  });
 };
 
 module.exports = Helpers;

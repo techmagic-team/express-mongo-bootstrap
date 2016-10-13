@@ -16,18 +16,74 @@ describe('Users API v1', () => {
         .get('/v1/users')
         .end((err, res) => {
           res.should.have.status(200);
+          res.body.should.be.an('array');
+          res.body.length.should.be.above(0);
           done();
         });
     });
   });
   describe('GET /users/:id', () => {
-    it('should list a SINGLE blob on /users/:id GET');
+    it('should list a SINGLE user on /users/:id GET', (done) => {
+      chai.request(server)
+        .get('/v1/users/57fe2450916165b0b8b20be2')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.an('object');
+          res.body.should.have.property('email');
+          done();
+        });
+    });
   });
   describe('POST /users', () => {
-    it('should add a SINGLE user on /users POST');
+    it('should add a SINGLE user on /users POST', (done) => {
+      chai.request(server)
+        .post('/v1/users')
+        .send({
+          email: 'testemail@testemail.com'
+        })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.an('object');
+          res.body.should.have.property('email');
+          res.body.email.should.be.equal('testemail@testemail.com');
+          done();
+        });
+    });
   });
   describe('PUT /users/:id', () => {
-    it('should update a SINGLE blob on /users/:id PUT');
+    it('should update a SINGLE blob on /users/:id PUT', (done) => {
+      chai.request(server)
+        .put('/v1/users/57fe2450916165b0b8b20be2')
+        .send({
+          email: 'testemail1@testemail.com',
+          fistName: 'fistName',
+          lastName: 'lastName'
+        })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.an('object');
+          res.body.should.have.property('email');
+          res.body.email.should.be.equal('testemail1@testemail.com');
+          res.body.should.have.property('fistName');
+          res.body.fistName.should.be.equal('fistName');
+          res.body.should.have.property('lastName');
+          res.body.lastName.should.be.equal('lastName');
+          res.body.password.should.be.equal('');
+          done();
+        });
+    });
+  });
+  describe('PATCH /users/:id', () => {
+    it('should update a SINGLE blob on /users/:id PATCH', (done) => {
+      chai.request(server)
+        .get('/v1/users/57fe2450916165b0b8b20be2')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.an('object');
+          res.body.should.have.property('email');
+          done();
+        });
+    });
   });
   describe('DELETE /users/:id', () => {
     it('should delete a SINGL on /users/:id DELETE');

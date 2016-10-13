@@ -6,8 +6,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const user = new Schema({
-  firstname: {type: String, trim: true, default: ''},
-  lastname: {type: String, trim: true, default: ''},
+  fistName: {type: String, trim: true, default: ''},
+  lastName: {type: String, trim: true, default: ''},
   email: {
     type: String,
     trim: true,

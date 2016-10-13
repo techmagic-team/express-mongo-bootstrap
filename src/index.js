@@ -3,6 +3,7 @@
 const express = require('express');
 const http = require('http');
 const mongoose = require('mongoose');
+const path = require('path');
 const apiV1 = require('./api/v1');
 const env = process.env.NODE_ENV || 'development';
 const _config = require('./config/_config.json')[env];
@@ -18,12 +19,11 @@ mongoose.connect(_config.database, (err) => {
   }
 });
 
-if (1) {
+if (_config.seedDB) {
   require('./utils/drop_collections')(mongoose);
-  const modelsPath = __dirname + '/models';
-  const seedsPath = __dirname + '/seeds';
-  const imports = require('./utils/mongodb-import-seed');
-  imports.f(modelsPath, seedsPath);
+  const modelsPath = path.join(__dirname, 'models');
+  const seedsPath = path.join(__dirname, 'seeds');
+  require('./utils/mongodb-import-seed')(modelsPath, seedsPath);
 }
 
 // Bootstrap application settings

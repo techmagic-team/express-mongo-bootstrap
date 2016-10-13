@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./src/",
-    "test": "mocha test/** --recursive",
+    "test": "NODE_ENV=test mocha test/** --recursive",
     "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/** --recursive",
     "jslinter": "eslint src/**/*.js test/**/*.js",
     "postinstall": "cp git-hooks/pre-commit .git/hooks/ && chmod +x .git/hooks/pre-commit"
