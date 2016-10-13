@@ -20,10 +20,11 @@ mongoose.connect(_config.database, (err) => {
 });
 
 if (_config.seedDB) {
-  require('./utils/drop_collections')(mongoose);
   const modelsPath = path.join(__dirname, 'models');
   const seedsPath = path.join(__dirname, 'seeds');
-  require('./utils/mongodb-import-seed')(modelsPath, seedsPath);
+  const mongoHelper = require('./utils/mongoHelper');
+  mongoHelper.dropCollections(mongoose);
+  mongoHelper.seedDatabase(modelsPath, seedsPath);
 }
 
 // Bootstrap application settings
