@@ -4,6 +4,9 @@ const async = require('async');
 const fs = require('fs');
 
 module.exports.dropCollections = (mongoose) => {
+  if (!mongoose) {
+    mongoose = require('mongoose');
+  }
   return async.forEachOf(mongoose.connection.collections, (value, collectionName, done) => {
     const collection = mongoose.connection.collections[collectionName];
     collection.drop((err) => {
@@ -20,12 +23,14 @@ module.exports.dropCollections = (mongoose) => {
   });
 };
 
-module.exports.seedDatabase = (models, seeds) => {
+module.exports.seedDatabase = (seeds, mongoose) => {
+  if (!mongoose) {
+    mongoose = require('mongoose');
+  }
   const seeders = fs.readdirSync(seeds);
   return async.each(seeders, (file, callback) => {
     const seeder = require(seeds + '/' + file);
-    const modelPath = models + '/' + seeder.model;
-    const model = require(modelPath);
+    const model = mongoose.model(seeder.model);
     model.create(seeder.collection, (err) => {
       if (err) {
         callback(err);
