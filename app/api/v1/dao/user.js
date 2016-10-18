@@ -53,7 +53,7 @@ module.exports.modify = (id, data) => {
 };
 
 module.exports.delete = (id) => {
-  return userModel.remove({id: id})
+  return userModel.findByIdAndRemove(id)
     .catch((err) => {
       throw errorHelper.serverError(err);
     });

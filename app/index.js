@@ -19,7 +19,7 @@ mongoose.connect(_config.database, (err) => {
   }
 });
 
-if (_config.seedDB) {
+if (_config.seed) {
   const seedsPath = path.join(__dirname, 'seeds');
   const mongooseHelper = require('./utils/mongooseHelper');
   mongooseHelper.dropCollections(mongoose);

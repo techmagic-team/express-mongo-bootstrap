@@ -73,6 +73,20 @@ describe('Users API v1', () => {
           done();
         });
     });
+    it('should list an error on /users POST', (done) => {
+      chai.request(server)
+        .post('/v1/users')
+        .send({
+          email: 'testemail.com'
+        })
+        .end((err, res) => {
+          res.should.have.status(500);
+          res.body.should.be.an('object');
+          res.body.should.have.property('error');
+          res.body.error.should.be.equal('SERVER_ERROR');
+          done();
+        });
+    });
   });
   describe('PUT /users/:id', () => {
     it('should update a SINGLE blob on /users/:id PUT', (done) => {
@@ -93,6 +107,22 @@ describe('Users API v1', () => {
           res.body.should.have.property('lastName');
           res.body.lastName.should.be.equal('lastName');
           chai.should().not.exist(res.body.password);
+          done();
+        });
+    });
+    it('should list an error on /users/:id PUT when data is invalid', (done) => {
+      chai.request(server)
+        .put('/v1/users/57fe2450916165b0b8b20be2')
+        .send({
+          email: 'testemail.com',
+          firstName: 'firstName',
+          lastName: 'lastName'
+        })
+        .end((err, res) => {
+          res.should.have.status(500);
+          res.body.should.be.an('object');
+          res.body.should.have.property('error');
+          res.body.error.should.be.equal('SERVER_ERROR');
           done();
         });
     });
@@ -118,22 +148,6 @@ describe('Users API v1', () => {
           chai.should().not.exist(res.body.password);
           done();
         });
-      it('should list an error on /users/:id PUT when data is invalid', (done) => {
-        chai.request(server)
-          .put('/v1/users/57fe2450916165b0b8b20be2')
-          .send({
-            email: 'testemail.com',
-            firstName: 'firstName',
-            lastName: 'lastName'
-          })
-          .end((err, res) => {
-            res.should.have.status(500);
-            res.body.should.be.an('object');
-            res.body.should.have.property('error');
-            res.body.error.should.be.equal('SERVER_ERROR');
-            done();
-          });
-      });
     });
     it('should list an error on /users/:id PATCH when data is invalid', (done) => {
       chai.request(server)
@@ -159,6 +173,17 @@ describe('Users API v1', () => {
         .end((err, res) => {
           res.should.have.status(204);
           res.body.should.be.empty;
+          done();
+        });
+    });
+    it('should list an error on /users/:invalid_id DELETE', (done) => {
+      chai.request(server)
+        .delete('/v1/users/1')
+        .end((err, res) => {
+          res.should.have.status(500);
+          res.body.should.be.an('object');
+          res.body.should.have.property('error');
+          res.body.error.should.be.equal('SERVER_ERROR');
           done();
         });
     });
