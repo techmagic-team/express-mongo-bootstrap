@@ -1,10 +1,12 @@
 {
   "test": {
     "database": "mongodb://localhost:27017/node-test",
-    "seedDB": true
+    "seedDB": true,
+    "token": "7C91A11D-D48D-4C52-98FB-E10E876500B7"
   },
   "development": {
     "database": "mongodb://localhost:27017/node-testing",
-    "seedDb": false
+    "seedDb": false,
+    "token": "7C91A11D-D48D-4C52-98FB-E10E876501B7"
   }
 }
