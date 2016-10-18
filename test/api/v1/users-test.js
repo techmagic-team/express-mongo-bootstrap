@@ -118,6 +118,38 @@ describe('Users API v1', () => {
           chai.should().not.exist(res.body.password);
           done();
         });
+      it('should list an error on /users/:id PUT when data is invalid', (done) => {
+        chai.request(server)
+          .put('/v1/users/57fe2450916165b0b8b20be2')
+          .send({
+            email: 'testemail.com',
+            firstName: 'firstName',
+            lastName: 'lastName'
+          })
+          .end((err, res) => {
+            res.should.have.status(500);
+            res.body.should.be.an('object');
+            res.body.should.have.property('error');
+            res.body.error.should.be.equal('SERVER_ERROR');
+            done();
+          });
+      });
+    });
+    it('should list an error on /users/:id PATCH when data is invalid', (done) => {
+      chai.request(server)
+        .patch('/v1/users/57fe2450916165b0b8b20be2')
+        .send({
+          email: 'testemail.com',
+          firstName: 'firstName',
+          lastName: 'lastName'
+        })
+        .end((err, res) => {
+          res.should.have.status(500);
+          res.body.should.be.an('object');
+          res.body.should.have.property('error');
+          res.body.error.should.be.equal('SERVER_ERROR');
+          done();
+        });
     });
   });
   describe('DELETE /users/:id', () => {

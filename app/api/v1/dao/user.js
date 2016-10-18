@@ -33,7 +33,7 @@ module.exports.findOne = (id) => {
 };
 
 module.exports.update = (id, data) => {
-  return userModel.findByIdAndUpdate(id, data, {new: true, overwrite: true})
+  return userModel.findByIdAndUpdate(id, data, {new: true, overwrite: true, runValidators: true})
     .then((data) => {
       return data;
     })
@@ -43,7 +43,7 @@ module.exports.update = (id, data) => {
 };
 
 module.exports.modify = (id, data) => {
-  return userModel.findByIdAndUpdate(id, {$set: data}, {new: true})
+  return userModel.findByIdAndUpdate(id, {$set: data}, {new: true, runValidators: true})
     .then((data) => {
       return data;
     })
