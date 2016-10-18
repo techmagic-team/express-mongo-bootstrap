@@ -6,6 +6,12 @@ module.exports.serverError = (err) => {
   return error;
 };
 
+module.exports.notFound = (err) => {
+  const error = new Error('NOT_FOUND');
+  error.code = 404;
+  return error;
+};
+
 module.exports.badRequest = (err) => {
   const error = new Error('BAD_REQUEST');
   error.code = 400;

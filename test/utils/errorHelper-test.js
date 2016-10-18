@@ -22,6 +22,17 @@ describe('errorHelper:', () => {
       done();
     });
   });
+  describe('#notFound()', () => {
+    it('should return Error(`NOT_FOUND`)', (done) => {
+      const error = errorHelper.notFound();
+      error.should.be.an('error');
+      chai.should().exist(error.message);
+      error.message.should.be.equal('NOT_FOUND');
+      chai.should().exist(error.code);
+      error.code.should.be.equal(404);
+      done();
+    });
+  });
   describe('#badRequest()', () => {
     it('should return Error(`BAD_REQUEST`)', (done) => {
       const error = errorHelper.badRequest();

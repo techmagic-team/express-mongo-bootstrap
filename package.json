@@ -5,10 +5,10 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/",
+    "start": "node ./app/",
     "test": "NODE_ENV=test mocha test/** --recursive",
     "cover": "NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/** --recursive",
-    "jslinter": "eslint src/**/*.js test/**/*.js",
+    "jslinter": "eslint app/**/*.js test/**/*.js",
     "postinstall": "cp git-hooks/pre-commit .git/hooks/ && chmod +x .git/hooks/pre-commit"
   },
   "repository": {

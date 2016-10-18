@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const daoUser = require('./../dao/user');
 const dtoUser = require('./../dto/user');
+const errorHelper = require('./../../../utils/errorHelper');
 
 /**
  * @api {get} /users.json GET users.json listing.
@@ -36,6 +37,7 @@ router.get('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   daoUser.findOne(req.params.id)
     .then((user) => {
+      if (!user) throw errorHelper.notFound();
       res.json(dtoUser.public(user));
     })
     .catch((err) => {

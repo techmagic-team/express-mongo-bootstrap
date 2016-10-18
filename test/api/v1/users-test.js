@@ -34,6 +34,28 @@ describe('Users API v1', () => {
           done();
         });
     });
+    it('should list an error on /users/:undefined_id GET', (done) => {
+      chai.request(server)
+        .get('/v1/users/57fe2450906165b0b8b20be2')
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.body.should.be.an('object');
+          res.body.should.have.property('error');
+          res.body.error.should.be.equal('NOT_FOUND');
+          done();
+        });
+    });
+    it('should list an error on /users/:invalid_id GET', (done) => {
+      chai.request(server)
+        .get('/v1/users/57')
+        .end((err, res) => {
+          res.should.have.status(500);
+          res.body.should.be.an('object');
+          res.body.should.have.property('error');
+          res.body.error.should.be.equal('SERVER_ERROR');
+          done();
+        });
+    });
   });
   describe('POST /users', () => {
     it('should add a SINGLE user on /users POST', (done) => {
