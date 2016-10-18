@@ -8,11 +8,7 @@ module.exports.dropCollections = (mongoose) => {
     mongoose = require('mongoose');
   }
   return async.forEachOf(mongoose.connection.collections, (value, collectionName, done) => {
-    const collection = mongoose.connection.collections[collectionName];
-    collection.drop((err) => {
-      if (err && err.message != 'ns not found') done(err);
-      done(null);
-    });
+    mongoose.connection.collections[collectionName].drop(done);
   }, (err) => {
     if (err) {
       console.log('Clean collection failed to process');
@@ -30,13 +26,7 @@ module.exports.seedDatabase = (seeds, mongoose) => {
   const seeders = fs.readdirSync(seeds);
   return async.each(seeders, (file, callback) => {
     const seeder = require(seeds + '/' + file);
-    const model = mongoose.model(seeder.model);
-    model.create(seeder.collection, (err) => {
-      if (err) {
-        callback(err);
-      }
-      callback();
-    });
+    mongoose.model(seeder.model).create(seeder.data, callback);
   }, (err) => {
     // if any of the file processing produced an error, err would equal that error
     if (err) {

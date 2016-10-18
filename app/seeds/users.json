@@ -1,6 +1,7 @@
 {
   "model": "user",
-  "collection": [
+  "collection": "users",
+  "data": [
     {
       "_id": "57fe2450916165b0b8b20be2",
       "firstName": "Jon",
