@@ -30,6 +30,7 @@ describe('Users API v1', () => {
           res.should.have.status(200);
           res.body.should.be.an('object');
           res.body.should.have.property('email');
+          chai.should().not.exist(res.body.password);
           done();
         });
     });
@@ -46,6 +47,7 @@ describe('Users API v1', () => {
           res.body.should.be.an('object');
           res.body.should.have.property('email');
           res.body.email.should.be.equal('testemail@testemail.com');
+          chai.should().not.exist(res.body.password);
           done();
         });
     });
@@ -56,7 +58,7 @@ describe('Users API v1', () => {
         .put('/v1/users/57fe2450916165b0b8b20be2')
         .send({
           email: 'testemail1@testemail.com',
-          fistName: 'fistName',
+          firstName: 'firstName',
           lastName: 'lastName'
         })
         .end((err, res) => {
@@ -64,11 +66,11 @@ describe('Users API v1', () => {
           res.body.should.be.an('object');
           res.body.should.have.property('email');
           res.body.email.should.be.equal('testemail1@testemail.com');
-          res.body.should.have.property('fistName');
-          res.body.fistName.should.be.equal('fistName');
+          res.body.should.have.property('firstName');
+          res.body.firstName.should.be.equal('firstName');
           res.body.should.have.property('lastName');
           res.body.lastName.should.be.equal('lastName');
-          res.body.password.should.be.equal('');
+          chai.should().not.exist(res.body.password);
           done();
         });
     });
@@ -79,7 +81,7 @@ describe('Users API v1', () => {
         .patch('/v1/users/57fe2450916165b0b8b20be2')
         .send({
           email: 'testemail1@testemail.com',
-          fistName: 'fistName',
+          firstName: 'firstName',
           lastName: 'lastName'
         })
         .end((err, res) => {
@@ -87,11 +89,11 @@ describe('Users API v1', () => {
           res.body.should.be.an('object');
           res.body.should.have.property('email');
           res.body.email.should.be.equal('testemail1@testemail.com');
-          res.body.should.have.property('fistName');
-          res.body.fistName.should.be.equal('fistName');
+          res.body.should.have.property('firstName');
+          res.body.firstName.should.be.equal('firstName');
           res.body.should.have.property('lastName');
           res.body.lastName.should.be.equal('lastName');
-          res.body.password.should.be.equal('');
+          chai.should().not.exist(res.body.password);
           done();
         });
     });

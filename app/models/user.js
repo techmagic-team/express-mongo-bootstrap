@@ -1,12 +1,12 @@
 'use strict';
 
 const mongoose = require('mongoose');
-//const cryptPassword = require('../utils').cryptPassword;
+const crypto = require('crypto');
 
 const Schema = mongoose.Schema;
 
 const user = new Schema({
-  fistName: {type: String, trim: true, default: ''},
+  firstName: {type: String, trim: true, default: ''},
   lastName: {type: String, trim: true, default: ''},
   email: {
     type: String,
@@ -20,6 +20,14 @@ const user = new Schema({
 }, {
   collection: 'users',
   _id: true
+});
+
+user.methods.encryptPassword = (password) => {
+  return crypto.createHash('sha1').update(password).digest('hex');
+};
+
+user.path('password').set((value) => {
+  return crypto.createHash('sha1').update(value).digest('hex');
 });
 
 user.path('email').validate((value) => {

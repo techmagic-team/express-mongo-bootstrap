@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const daoUser = require('./../dao/user');
+const dtoUser = require('./../dto/user');
 
 /**
  * @api {get} /users.json GET users.json listing.
@@ -14,7 +15,8 @@ const daoUser = require('./../dao/user');
 router.get('/', (req, res, next) => {
   return daoUser.findAll()
     .then((users) => {
-      res.json(users);
+      const publicUsers = users.map((user) => dtoUser.public(user));
+      res.json(publicUsers);
     })
     .catch((err) => {
       next(err);
@@ -34,7 +36,7 @@ router.get('/', (req, res, next) => {
 router.get('/:id', (req, res, next) => {
   daoUser.findOne(req.params.id)
     .then((user) => {
-      res.json(user);
+      res.json(dtoUser.public(user));
     })
     .catch((err) => {
       next(err);
@@ -54,7 +56,7 @@ router.get('/:id', (req, res, next) => {
 router.post('/', (req, res, next) => {
   daoUser.create(req.body)
     .then((user) => {
-      res.json(user);
+      res.json(dtoUser.public(user));
     })
     .catch((err) => {
       next(err);
@@ -75,7 +77,7 @@ router.post('/', (req, res, next) => {
 router.put('/:id', (req, res, next) => {
   daoUser.update(req.params.id, req.body)
     .then((user) => {
-      res.json(user);
+      res.json(dtoUser.public(user));
     })
     .catch((err) => {
       next(err);
@@ -96,7 +98,7 @@ router.put('/:id', (req, res, next) => {
 router.patch('/:id', (req, res, next) => {
   daoUser.modify(req.params.id, req.body)
     .then((user) => {
-      res.json(user);
+      res.json(dtoUser.public(user));
     })
     .catch((err) => {
       next(err);
