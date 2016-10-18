@@ -2,17 +2,16 @@
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const describe = require('mocha').describe;
-const it = require('mocha').it;
+const mocha = require('mocha');
 
 chai.should();
 chai.use(chaiHttp);
 
 const errorHelper = require('./../../app/utils/errorHelper');
 
-describe('errorHelper:', () => {
-  describe('#serverError()', () => {
-    it('should return Error(`SERVER_ERROR`)', (done) => {
+mocha.describe('errorHelper:', () => {
+  mocha.describe('#serverError()', () => {
+    mocha.it('should return Error(`SERVER_ERROR`)', (done) => {
       const error = errorHelper.serverError();
       error.should.be.an('error');
       chai.should().exist(error.message);
@@ -22,8 +21,8 @@ describe('errorHelper:', () => {
       done();
     });
   });
-  describe('#notFound()', () => {
-    it('should return Error(`NOT_FOUND`)', (done) => {
+  mocha.describe('#notFound()', () => {
+    mocha.it('should return Error(`NOT_FOUND`)', (done) => {
       const error = errorHelper.notFound();
       error.should.be.an('error');
       chai.should().exist(error.message);
@@ -33,8 +32,8 @@ describe('errorHelper:', () => {
       done();
     });
   });
-  describe('#badRequest()', () => {
-    it('should return Error(`BAD_REQUEST`)', (done) => {
+  mocha.describe('#badRequest()', () => {
+    mocha.it('should return Error(`BAD_REQUEST`)', (done) => {
       const error = errorHelper.badRequest();
       error.should.be.an('error');
       chai.should().exist(error.message);

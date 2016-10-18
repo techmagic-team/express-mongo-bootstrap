@@ -4,17 +4,16 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../../app');
 const path = require('path');
-const describe = require('mocha').describe;
-const it = require('mocha').it;
+const mocha = require('mocha');
 
 chai.should();
 chai.use(chaiHttp);
 
 const mongooseHelper = require('./../../app/utils/mongooseHelper');
 
-describe('mongooseHelper:', () => {
-  describe('#dropCollections()', () => {
-    it('should drop collections of database', (done) => {
+mocha.describe('mongooseHelper:', () => {
+  mocha.describe('#dropCollections()', () => {
+    mocha.it('should drop collections of database', (done) => {
       mongooseHelper.dropCollections();
       chai.request(server)
         .get('/v1/users')
@@ -26,8 +25,8 @@ describe('mongooseHelper:', () => {
         });
     });
   });
-  describe('#seedDatabase()', () => {
-    it('should seed database', (done) => {
+  mocha.describe('#seedDatabase()', () => {
+    mocha.it('should seed database', (done) => {
       const seedsPath = path.join(__dirname, '../../app/seeds');
       mongooseHelper.seedDatabase(seedsPath);
       chai.request(server)
