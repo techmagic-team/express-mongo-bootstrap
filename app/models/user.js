@@ -1,7 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const crypto = require('crypto');
+const passportUtil = require('./../utils/passport');
 
 const Schema = mongoose.Schema;
 
@@ -22,12 +22,8 @@ const user = new Schema({
   _id: true
 });
 
-user.methods.encryptPassword = (password) => {
-  return crypto.createHash('sha1').update(password).digest('hex');
-};
-
 user.path('password').set((value) => {
-  return crypto.createHash('sha1').update(value).digest('hex');
+  return passportUtil.encryptPassword(value);
 });
 
 user.path('email').validate((value) => {

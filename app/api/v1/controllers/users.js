@@ -14,7 +14,7 @@ const errorHelper = require('./../../../utils/errorHelper');
  * @apiSuccess {object[]} List of users.json.
  */
 router.get('/', (req, res, next) => {
-  return daoUser.findAll()
+  daoUser.findAll()
     .then((users) => {
       const publicUsers = users.map((user) => dtoUser.public(user));
       res.json(publicUsers);

@@ -4,9 +4,9 @@ module.exports = (app) => {
 
   // catch 404 and forward to error handler
   app.use((req, res, next) => {
-    const err = new Error('Not Found');
+    const err = new Error('NOT_FOUND');
     err.code = 404;
-    err.message = 'Not Found';
+    err.message = 'NOT_FOUND';
     next(err);
   });
 
@@ -16,9 +16,6 @@ module.exports = (app) => {
       code: err.code || 500,
       error: err.error || err.message
     };
-    if (req.url && req.url.indexOf('/json') !== 0)
-      console.log('error:', error, 'url:', req.url);
-
     res.status(error.code).json(error);
   });
 

@@ -1,8 +1,10 @@
 'use strict';
 
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 const env = process.env.NODE_ENV || 'development';
 const _config = require('../config/_config.json')[env];
+const errorHelper = require('./errorHelper');
 
 module.exports.createAuthToken = (user, token) => {
   const tokenSecret = (token) ? token : _config.token;
@@ -24,4 +26,11 @@ module.exports.extractAuthToken = (authToken, token) => {
       return null;
     });
   });
+};
+module.exports.encryptPassword = (password) => {
+  try {
+    return crypto.createHash('sha1').update(password).digest('hex');
+  } catch (err) {
+    throw errorHelper.serverError();
+  }
 };

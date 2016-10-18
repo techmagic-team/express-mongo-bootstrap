@@ -3,8 +3,8 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const sinon = require('sinon');
-const userModel = require('./../../../app/models/user.js');
-const server = require('../../../app');
+const userModel = require('./../../../../app/models/user.js');
+const server = require('../../../../app/index');
 const mocha = require('mocha');
 
 chai.should();

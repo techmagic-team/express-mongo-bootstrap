@@ -14,6 +14,9 @@ mocha.describe('Server', () => {
       .get('/v0')
       .end((err, res) => {
         res.should.have.status(404);
+        res.body.should.be.an('object');
+        res.body.should.have.property('error');
+        res.body.error.should.be.equal('NOT_FOUND');
         done();
       });
   });

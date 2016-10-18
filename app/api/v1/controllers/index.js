@@ -7,8 +7,7 @@ router.get('/', (req, res) => {
   res.json({version: 'v1'});
 });
 
-const users = require('./users');
-
-router.use('/users', users);
+router.use('/users', require('./users'));
+router.use('/auth', require('./auth'));
 
 module.exports = router;

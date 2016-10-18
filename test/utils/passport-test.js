@@ -5,7 +5,7 @@ const mocha = require('mocha');
 
 chai.should();
 
-const authToken = require('./../../app/utils/authToken');
+const authToken = require('./../../app/utils/passport');
 
 mocha.describe('authToken:', () => {
   let authTokenString;
@@ -25,6 +25,13 @@ mocha.describe('authToken:', () => {
         .then((data) => {
           chai.should().exist(data.userId);
           data.userId.should.be.equal(user.id);
+          done();
+        });
+    });
+    mocha.it('should return extract authorization token', (done) => {
+      authToken.extractAuthToken('fail')
+        .catch((err) => {
+          chai.should().exist(err);
           done();
         });
     });
