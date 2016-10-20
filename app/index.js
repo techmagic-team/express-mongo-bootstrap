@@ -20,8 +20,16 @@ mongoose.connect(_config.database, (err) => {
 if (_config.seed) {
   const seedsPath = path.join(__dirname, 'seeds');
   const mongooseHelper = require('./utils/mongooseHelper');
-  mongooseHelper.dropCollections(mongoose);
-  mongooseHelper.seedDatabase(seedsPath, mongoose);
+  mongooseHelper.dropCollections(mongoose, (err) => {
+    if (err) {
+      console.error(err);
+    }
+  });
+  mongooseHelper.seedDatabase(seedsPath, mongoose, (err) => {
+    if (err) {
+      console.error(err);
+    }
+  });
 }
 
 const app = express();

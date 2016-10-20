@@ -8,15 +8,12 @@ chai.should();
 
 const sendEmail = require('./../../app/utils/sendEmail');
 
-mocha.describe('sendEmail.js:', () => {
+mocha.describe('sendEmail:', () => {
   const user = {
     email: 'testemail@gmail.com'
   };
-
-  let stub;
-
-
-  mocha.describe('#sendEmail.js()', () => {
+  mocha.describe('#sendEmail()', () => {
+    let stub;
     mocha.before((done) => {
       stub = sinon.stub(sendEmail.client, 'sendEmail').yields(null);
       done();
@@ -33,20 +30,56 @@ mocha.describe('sendEmail.js:', () => {
     });
   });
   mocha.describe('#sendWelcomeEmail()', () => {
-    mocha.before((done) => {
-      stub = sinon.stub(sendEmail.client, 'sendEmail').yields(null);
-      done();
+    mocha.describe('with success sending', () => {
+      let stub;
+      mocha.beforeEach((done) => {
+        stub = sinon.stub(sendEmail.client, 'sendEmail').yields(null);
+        done();
+      });
+      mocha.afterEach((done) => {
+        stub.restore();
+        done();
+      });
+      mocha.it('should return true', (done) => {
+        sendEmail.sendWelcomeEmail(user)
+          .then((data) => {
+            data.should.be.equal(true);
+            done();
+          });
+      });
+      mocha.it('should throw an Error', (done) => {
+        sendEmail.sendWelcomeEmail()
+          .catch((err) => {
+            err.should.be.an('error');
+            chai.should().exist(err.message);
+            err.message.should.be.equal('SERVER_ERROR');
+            chai.should().exist(err.code);
+            err.code.should.be.equal(500);
+            done();
+          });
+      });
     });
-    mocha.afterEach((done) => {
-      stub.restore();
-      done();
-    });
-    mocha.it('should return extract authorization token', (done) => {
-      sendEmail.sendWelcomeEmail(user)
-        .then((data) => {
-          data.should.be.equal(true);
-          done();
-        });
+    mocha.describe('with fail result', () => {
+      let stub;
+      mocha.before((done) => {
+        stub = sinon.stub(sendEmail.client, 'sendEmail').yields(new Error());
+        done();
+      });
+      mocha.after((done) => {
+        stub.restore();
+        done();
+      });
+      mocha.it('should return an Error', (done) => {
+        sendEmail.sendWelcomeEmail(user)
+          .catch((err) => {
+            err.should.be.an('error');
+            chai.should().exist(err.message);
+            err.message.should.be.equal('SERVER_ERROR');
+            chai.should().exist(err.code);
+            err.code.should.be.equal(500);
+            done();
+          });
+      });
     });
   });
 });

@@ -25,20 +25,27 @@ module.exports.sendEmail = (emailBody) => {
 };
 
 module.exports.sendWelcomeEmail = (obj) => {
-  try {
-    const data = {
-      email: obj.email,
-    };
-    const html = pug.renderFile('views/emails/welcome.pug', data);
-    const email = {
-      to: obj.email,
-      from: _config.email,
-      subject: 'Welcome.',
-      message: html
-    };
-    return this.sendEmail(email);
-  } catch (err) {
+  return new Promise((resolve, reject) => {
+    try {
+      const data = {
+        email: obj.email,
+      };
+      const html = pug.renderFile('views/emails/welcome.pug', data);
+      const email = {
+        to: obj.email,
+        from: _config.email,
+        subject: 'Welcome.',
+        message: html
+      };
+      const send = this.sendEmail(email);
+      return resolve(send);
+    } catch (err) {
+      reject(err);
+    }
+  }).then((data) => {
+    return data;
+  }).catch((err) => {
     const error = errorHelper.serverError(err);
     throw (error);
-  }
+  });
 };
