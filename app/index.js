@@ -8,10 +8,8 @@ const apiV1 = require('./api/v1/controllers');
 const env = process.env.NODE_ENV || 'development';
 const _config = require('./config/_config.json')[env];
 
-const app = express();
-
 // db connect
-mongoose.set('debug', false);
+mongoose.set('debug', _config.debug);
 mongoose.Promise = global.Promise;
 mongoose.connect(_config.database, (err) => {
   if (err) {
@@ -24,6 +22,13 @@ if (_config.seed) {
   const mongooseHelper = require('./utils/mongooseHelper');
   mongooseHelper.dropCollections(mongoose);
   mongooseHelper.seedDatabase(seedsPath, mongoose);
+}
+
+const app = express();
+
+if (_config.debug) {
+  const morgan = require('morgan');
+  app.use(morgan(':method :url :status :response-time'));
 }
 
 // Bootstrap application settings

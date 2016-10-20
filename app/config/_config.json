@@ -2,11 +2,25 @@
   "test": {
     "database": "mongodb://localhost:27017/node-test",
     "seed": true,
-    "token": "7C91A11D-D48D-4C52-98FB-E10E876500B7"
+    "token": "7C91A11D-D48D-4C52-98FB-E10E876500B7",
+    "debug": true,
+    "aws": {
+      "accessKeyId": "YOURAMAZONKEY",
+      "secretAccessKey": "YOURAMAZONSECRET",
+      "region": "us-west-2"
+    },
+    "email": "youremail@yoursite.com"
   },
   "development": {
     "database": "mongodb://localhost:27017/node-testing",
     "seed": true,
-    "token": "7C91A11D-D48D-4C52-98FB-E10E876501B7"
+    "token": "7C91A11D-D48D-4C52-98FB-E10E876501B7",
+    "debug": true,
+    "aws": {
+      "accessKeyId": "YOURAMAZONKEY",
+      "secretAccessKey": "YOURAMAZONSECRET",
+      "region": "us-west-2"
+    },
+    "email": "youremail@yoursite.com"
   }
 }
