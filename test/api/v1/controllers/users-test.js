@@ -11,6 +11,22 @@ chai.should();
 chai.use(chaiHttp);
 
 mocha.describe('Users API v1', () => {
+  let accessToken;
+  mocha.before((done) => {
+    chai.request(server)
+      .post('/v1/auth')
+      .send({
+        email: 'john.doe1@awesome.com',
+        password: 'qwerty'
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.an('object');
+        res.body.should.have.property('accessToken');
+        accessToken = res.body.accessToken;
+        done();
+      });
+  });
   mocha.describe('GET /users', () => {
     mocha.it('should list users on /users GET', (done) => {
       chai.request(server)
@@ -115,6 +131,7 @@ mocha.describe('Users API v1', () => {
     mocha.it('should update a SINGLE blob on /users/:id PUT', (done) => {
       chai.request(server)
         .put('/v1/users/57fe2450916165b0b8b20be2')
+        .set('Authorization', accessToken)
         .send({
           email: 'testemail1@testemail.com',
           firstName: 'firstName',
@@ -136,6 +153,7 @@ mocha.describe('Users API v1', () => {
     mocha.it('should list an error on /users/:id PUT when data is invalid', (done) => {
       chai.request(server)
         .put('/v1/users/57fe2450916165b0b8b20be2')
+        .set('Authorization', accessToken)
         .send({
           email: 'testemail.com',
           firstName: 'firstName',
@@ -154,6 +172,7 @@ mocha.describe('Users API v1', () => {
     mocha.it('should update a SINGLE blob on /users/:id PATCH', (done) => {
       chai.request(server)
         .patch('/v1/users/57fe2450916165b0b8b20be2')
+        .set('Authorization', accessToken)
         .send({
           email: 'testemail1@testemail.com',
           firstName: 'firstName',
@@ -175,6 +194,7 @@ mocha.describe('Users API v1', () => {
     mocha.it('should list an error on /users/:id PATCH when data is invalid', (done) => {
       chai.request(server)
         .patch('/v1/users/57fe2450916165b0b8b20be2')
+        .set('Authorization', accessToken)
         .send({
           email: 'testemail.com',
           firstName: 'firstName',

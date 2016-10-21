@@ -30,7 +30,6 @@ mocha.describe('DTO User:', () => {
       const user = {};
       const dtoUser = dto.public(user);
       chai.assert.isNull(dtoUser._id);
-      chai.assert.isNull(dtoUser.accessToken);
       chai.assert.isNull(dtoUser.firstName);
       chai.assert.isNull(dtoUser.lastName);
       chai.assert.isNull(dtoUser.email);

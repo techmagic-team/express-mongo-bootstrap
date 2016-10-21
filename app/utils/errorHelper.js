@@ -23,3 +23,10 @@ module.exports.badRequest = (err) => {
   error.code = 400;
   return error;
 };
+
+module.exports.forbidden = (err) => {
+  if (_config.debug && err) console.error(err);
+  const error = new Error('FORBIDDEN');
+  error.code = 403;
+  return error;
+};

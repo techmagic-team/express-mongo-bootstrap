@@ -5,6 +5,7 @@ const router = express.Router();
 const daoUser = require('./../dao/user');
 const dtoUser = require('./../dto/user');
 const errorHelper = require('./../../../utils/errorHelper');
+const passportMiddleware = require('./../middlewares/passport');
 
 /**
  * @api {get} /users.json GET users.json listing.
@@ -76,7 +77,8 @@ router.post('/', (req, res, next) => {
  * @apiSuccess {String} firstname Firstname of the User.
  * @apiSuccess {String} lastname  Lastname of the User.
  */
-router.put('/:id', (req, res, next) => {
+router.put('/:id', passportMiddleware.checkAuthToken, (req, res, next) => {
+  if (req.params.id != req.user._id) next(errorHelper.forbidden());
   daoUser.update(req.params.id, req.body)
     .then((user) => {
       res.json(dtoUser.public(user));
@@ -97,7 +99,8 @@ router.put('/:id', (req, res, next) => {
  * @apiSuccess {String} firstname Firstname of the User.
  * @apiSuccess {String} lastname  Lastname of the User.
  */
-router.patch('/:id', (req, res, next) => {
+router.patch('/:id', passportMiddleware.checkAuthToken, (req, res, next) => {
+  if (req.params.id != req.user._id) next(errorHelper.forbidden());
   daoUser.modify(req.params.id, req.body)
     .then((user) => {
       res.json(dtoUser.public(user));
