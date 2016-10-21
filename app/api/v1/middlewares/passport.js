@@ -12,6 +12,7 @@ module.exports.checkAuthToken = (req, res, next) => {
   }
   return passportUtil.extractAuthToken(token)
     .then((decoded) => {
+      console.log(decoded);
       if (!decoded || !decoded.userId) {
         throw errorHelper.forbidden();
       }
@@ -19,12 +20,12 @@ module.exports.checkAuthToken = (req, res, next) => {
     })
     .then((user) => {
       if (user === null) {
-        throw errorHelper.notFound();
+        throw errorHelper.forbidden();
       }
       req.user = user;
       next();
     })
-    .catch(() => {
-      next(errorHelper.forbidden());
+    .catch((err) => {
+      next(err);
     });
 };

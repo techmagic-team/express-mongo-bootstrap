@@ -43,5 +43,15 @@ mocha.describe('errorHelper:', () => {
       done();
     });
   });
-
+  mocha.describe('#forbidden()', () => {
+    mocha.it('should return Error(`FORBIDDEN`)', (done) => {
+      const error = errorHelper.forbidden('forbidden');
+      error.should.be.an('error');
+      chai.should().exist(error.message);
+      error.message.should.be.equal('FORBIDDEN');
+      chai.should().exist(error.code);
+      error.code.should.be.equal(403);
+      done();
+    });
+  });
 });
