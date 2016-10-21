@@ -9,7 +9,7 @@ const errorHelper = require('./errorHelper');
 module.exports.createAuthToken = (user, token) => {
   const tokenSecret = (token) ? token : _config.token;
   const tokenPayload = {
-    userId: user.id
+    userId: user._id
   };
   const expiresIn = 24 * 60 * 60;
   return jwt.sign(tokenPayload, tokenSecret, {expiresIn: expiresIn});

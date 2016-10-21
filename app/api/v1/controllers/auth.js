@@ -14,6 +14,7 @@ router.post('/', (req, res, next) => {
     .then((user) => {
       if (!user) throw errorHelper.badRequest();
       if (user.password !== passportUtil.encryptPassword(password)) throw errorHelper.badRequest();
+      user.accessToken = passportUtil.createAuthToken(user);
       res.json(dtoUser.public(user));
     })
     .catch((err) => {

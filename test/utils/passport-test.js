@@ -10,7 +10,7 @@ const authToken = require('./../../app/utils/passport');
 mocha.describe('authToken:', () => {
   let authTokenString;
   const user = {
-    id: 1
+    _id: 1
   };
   mocha.describe('#createAuthToken()', () => {
     mocha.it('should return authorization token', (done) => {
@@ -24,7 +24,7 @@ mocha.describe('authToken:', () => {
       authToken.extractAuthToken(authTokenString)
         .then((data) => {
           chai.should().exist(data.userId);
-          data.userId.should.be.equal(user.id);
+          data.userId.should.be.equal(user._id);
           done();
         });
     });
