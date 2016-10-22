@@ -167,6 +167,21 @@ mocha.describe('Users API v1', () => {
           done();
         });
     });
+    mocha.it('should list an error on /users/:id PUT when try to update other users', (done) => {
+      chai.request(server)
+        .put('/v1/users/57fe2450916165b0b8b20be3')
+        .set('Authorization', accessToken)
+        .send({
+          lastName: 'lastName'
+        })
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.be.an('object');
+          res.body.should.have.property('error');
+          res.body.error.should.be.equal('FORBIDDEN');
+          done();
+        });
+    });
   });
   mocha.describe('PATCH /users/:id', () => {
     mocha.it('should update a SINGLE blob on /users/:id PATCH', (done) => {
@@ -205,6 +220,21 @@ mocha.describe('Users API v1', () => {
           res.body.should.be.an('object');
           res.body.should.have.property('error');
           res.body.error.should.be.equal('SERVER_ERROR');
+          done();
+        });
+    });
+    mocha.it('should list an error on /users/:id PATCH when try to update other users', (done) => {
+      chai.request(server)
+        .patch('/v1/users/57fe2450916165b0b8b20be3')
+        .set('Authorization', accessToken)
+        .send({
+          lastName: 'lastName'
+        })
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.be.an('object');
+          res.body.should.have.property('error');
+          res.body.error.should.be.equal('FORBIDDEN');
           done();
         });
     });
