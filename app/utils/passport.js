@@ -18,8 +18,9 @@ module.exports.createAuthToken = (user, token) => {
 module.exports.extractAuthToken = (authToken, token) => {
   const tokenSecret = (token) ? token : _config.token;
   return new Promise((resolve, reject) => {
-    return jwt.verify(authToken, tokenSecret, (err, decoded) => {
+    jwt.verify(authToken, tokenSecret, (err, decoded) => {
       if (err) {
+        console.error(err);
         reject(err);
       }
       resolve(decoded);

@@ -8,11 +8,10 @@ const passportUtil = require('./../../../utils/passport');
 module.exports.checkAuthToken = (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
-    next(errorHelper.forbidden());
+    return next(errorHelper.forbidden());
   }
   return passportUtil.extractAuthToken(token)
     .then((decoded) => {
-      console.log(decoded);
       if (!decoded || !decoded.userId) {
         throw errorHelper.forbidden();
       }
@@ -22,8 +21,8 @@ module.exports.checkAuthToken = (req, res, next) => {
       if (user === null) {
         throw errorHelper.forbidden();
       }
-      req.user = user;
-      next();
+      res.locals.user = user;
+      return next();
     })
     .catch((err) => {
       return next(err);
