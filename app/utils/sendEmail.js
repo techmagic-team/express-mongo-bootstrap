@@ -7,7 +7,8 @@ const pug = require('pug');
 const ses = require('node-ses');
 const client = ses.createClient({
   key: _config.aws.accessKeyId,
-  secret: _config.aws.secretAccessKey
+  secret: _config.aws.secretAccessKey,
+  amazon: 'https://email.' + _config.aws.region + '.amazonaws.com'
 });
 
 module.exports.client = client;
@@ -45,7 +46,6 @@ module.exports.sendWelcomeEmail = (obj) => {
   }).then((data) => {
     return data;
   }).catch((err) => {
-    const error = errorHelper.serverError(err);
-    throw (error);
+    throw errorHelper.serverError(err);
   });
 };

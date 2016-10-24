@@ -6,6 +6,7 @@ const daoUser = require('./../dao/user');
 const dtoUser = require('./../dto/user');
 const errorHelper = require('./../../../utils/errorHelper');
 const passportMiddleware = require('./../middlewares/passport');
+const sendEmailUtil = require('./../../../utils/sendEmail');
 
 /**
  * @api {get} /users.json GET users.json listing.
@@ -59,6 +60,10 @@ router.get('/:id', (req, res, next) => {
 router.post('/', (req, res, next) => {
   daoUser.create(req.body)
     .then((user) => {
+      return Promise.all([user, sendEmailUtil.sendWelcomeEmail(user)]);
+    })
+    .then((data) => {
+      const user = data[0];
       res.json(dtoUser.public(user));
     })
     .catch((err) => {

@@ -101,13 +101,13 @@ mocha.describe('Users API v1', () => {
       chai.request(server)
         .post('/v1/users')
         .send({
-          email: 'testemail@testemail.com'
+          email: 'ihor.fito@techmagic.co'
         })
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.an('object');
           res.body.should.have.property('email');
-          res.body.email.should.be.equal('testemail@testemail.com');
+          res.body.email.should.be.equal('ihor.fito@techmagic.co');
           chai.should().not.exist(res.body.password);
           done();
         });

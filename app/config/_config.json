@@ -5,11 +5,11 @@
     "token": "7C91A11D-D48D-4C52-98FB-E10E876500B7",
     "debug": true,
     "aws": {
-      "accessKeyId": "YOURAMAZONKEY",
-      "secretAccessKey": "YOURAMAZONSECRET",
-      "region": "us-west-2"
+      "accessKeyId": "AKIAIZ4CXB7U5RB3FYZA",
+      "secretAccessKey": "EP9AMExsdtu9gB0zXElMlL7rCu+ol5SLV4rj84GH",
+      "region": "eu-west-1"
     },
-    "email": "youremail@yoursite.com"
+    "email": "ihor.fito@techmagic.co"
   },
   "development": {
     "database": "mongodb://localhost:27017/node-testing",
@@ -17,10 +17,10 @@
     "token": "7C91A11D-D48D-4C52-98FB-E10E876501B7",
     "debug": true,
     "aws": {
-      "accessKeyId": "YOURAMAZONKEY",
-      "secretAccessKey": "YOURAMAZONSECRET",
-      "region": "us-west-2"
+      "accessKeyId": "AKIAIZ4CXB7U5RB3FYZA",
+      "secretAccessKey": "EP9AMExsdtu9gB0zXElMlL7rCu+ol5SLV4rj84GH",
+      "region": "eu-west-1"
     },
-    "email": "youremail@yoursite.com"
+    "email": "ihor.fito@techmagic.co"
   }
 }
