@@ -62,8 +62,8 @@ mocha.describe('Users API v1', () => {
       });
     });
   });
-  mocha.describe('GET /users/:id', () => {
-    mocha.it('should list a SINGLE user on /users/:id GET', (done) => {
+  mocha.describe('GET /users/:user_id', () => {
+    mocha.it('should list a SINGLE user on /users/:user_id GET', (done) => {
       chai.request(server)
         .get('/v1/users/57fe2450916165b0b8b20be2')
         .end((err, res) => {
@@ -137,8 +137,8 @@ mocha.describe('Users API v1', () => {
         });
     });
   });
-  mocha.describe('PUT /users/:id', () => {
-    mocha.it('should update a SINGLE blob on /users/:id PUT', (done) => {
+  mocha.describe('PUT /users/:user_id', () => {
+    mocha.it('should update a SINGLE blob on /users/:user_id PUT', (done) => {
       chai.request(server)
         .put('/v1/users/57fe2450916165b0b8b20be2')
         .set('Authorization', accessToken)
@@ -160,7 +160,7 @@ mocha.describe('Users API v1', () => {
           done();
         });
     });
-    mocha.it('should list an error on /users/:id PUT when data is invalid', (done) => {
+    mocha.it('should list an error on /users/:user_id PUT when data is invalid', (done) => {
       chai.request(server)
         .put('/v1/users/57fe2450916165b0b8b20be2')
         .set('Authorization', accessToken)
@@ -177,7 +177,7 @@ mocha.describe('Users API v1', () => {
           done();
         });
     });
-    mocha.it('should list an error on /users/:id PUT when try to update other users', (done) => {
+    mocha.it('should list an error on /users/:user_id PUT when try to update other users', (done) => {
       chai.request(server)
         .put('/v1/users/57fe2450916165b0b8b20be3')
         .set('Authorization', accessToken)
@@ -193,8 +193,8 @@ mocha.describe('Users API v1', () => {
         });
     });
   });
-  mocha.describe('PATCH /users/:id', () => {
-    mocha.it('should update a SINGLE blob on /users/:id PATCH', (done) => {
+  mocha.describe('PATCH /users/:user_id', () => {
+    mocha.it('should update a SINGLE blob on /users/:user_id PATCH', (done) => {
       chai.request(server)
         .patch('/v1/users/57fe2450916165b0b8b20be2')
         .set('Authorization', accessToken)
@@ -216,7 +216,7 @@ mocha.describe('Users API v1', () => {
           done();
         });
     });
-    mocha.it('should list an error on /users/:id PATCH when data is invalid', (done) => {
+    mocha.it('should list an error on /users/:user_id PATCH when data is invalid', (done) => {
       chai.request(server)
         .patch('/v1/users/57fe2450916165b0b8b20be2')
         .set('Authorization', accessToken)
@@ -233,7 +233,7 @@ mocha.describe('Users API v1', () => {
           done();
         });
     });
-    mocha.it('should list an error on /users/:id PATCH when try to update other users', (done) => {
+    mocha.it('should list an error on /users/:user_id PATCH when try to update other users', (done) => {
       chai.request(server)
         .patch('/v1/users/57fe2450916165b0b8b20be3')
         .set('Authorization', accessToken)
@@ -249,8 +249,8 @@ mocha.describe('Users API v1', () => {
         });
     });
   });
-  mocha.describe('DELETE /users/:id', () => {
-    mocha.it('should delete a SINGLE user on /users/:id DELETE', (done) => {
+  mocha.describe('DELETE /users/:user_id', () => {
+    mocha.it('should delete a SINGLE user on /users/:user_id DELETE', (done) => {
       chai.request(server)
         .delete('/v1/users/57fe2450916165b0b8b20be2')
         .end((err, res) => {
