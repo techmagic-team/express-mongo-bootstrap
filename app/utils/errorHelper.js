@@ -1,32 +1,38 @@
 'use strict';
 
-const env = process.env.NODE_ENV || 'development';
-const _config = require('../config/_config.json')[env];
+class projectError extends Error {
+  constructor(message) {
+    super(message);
+    this.message = message;
+    this.name = 'projectError';
+    this.error = message;
+  }
+}
 
 module.exports.serverError = (err) => {
-  if (_config.debug && err) console.error(err);
-  const error = new Error('SERVER_ERROR');
+  const error = new projectError('SERVER_ERROR');
+  if (err) error.message = err;
   error.code = 500;
   return error;
 };
 
 module.exports.notFound = (err) => {
-  if (_config.debug && err) console.error(err);
-  const error = new Error('NOT_FOUND');
+  const error = new projectError('NOT_FOUND');
+  if (err) error.message = err;
   error.code = 404;
   return error;
 };
 
 module.exports.badRequest = (err) => {
-  if (_config.debug && err) console.error(err);
-  const error = new Error('BAD_REQUEST');
+  const error = new projectError('BAD_REQUEST');
+  if (err) error.message = err;
   error.code = 400;
   return error;
 };
 
 module.exports.forbidden = (err) => {
-  if (_config.debug && err) console.error(err);
-  const error = new Error('FORBIDDEN');
+  const error = new projectError('FORBIDDEN');
+  if (err) error.message = err;
   error.code = 403;
   return error;
 };

@@ -50,9 +50,9 @@ mocha.describe('sendEmail:', () => {
       mocha.it('should throw an Error', (done) => {
         sendEmail.sendWelcomeEmail()
           .catch((err) => {
-            err.should.be.an('error');
             chai.should().exist(err.message);
-            err.message.should.be.equal('SERVER_ERROR');
+            err.error.should.be.equal('SERVER_ERROR');
+            err.message.should.be.equal('Cannot read property \'email\' of undefined');
             chai.should().exist(err.code);
             err.code.should.be.equal(500);
             done();
@@ -72,7 +72,8 @@ mocha.describe('sendEmail:', () => {
       mocha.it('should return an Error', (done) => {
         sendEmail.sendWelcomeEmail(user)
           .catch((err) => {
-            err.should.be.an('error');
+            chai.should().exist(err.error);
+            err.error.should.be.equal('SERVER_ERROR');
             chai.should().exist(err.message);
             err.message.should.be.equal('SERVER_ERROR');
             chai.should().exist(err.code);

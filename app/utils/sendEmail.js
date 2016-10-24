@@ -17,7 +17,7 @@ module.exports.sendEmail = (emailBody) => {
   return new Promise((resolve, reject) => {
     this.client.sendEmail(emailBody, (err) => {
       if (err) {
-        const error = errorHelper.serverError(err);
+        const error = errorHelper.serverError(err.message);
         return reject(error);
       }
       return resolve(true);
@@ -46,6 +46,6 @@ module.exports.sendWelcomeEmail = (obj) => {
   }).then((data) => {
     return data;
   }).catch((err) => {
-    throw errorHelper.serverError(err);
+    throw errorHelper.serverError(err.message);
   });
 };
