@@ -18,7 +18,7 @@ router.post('/', (req, res, next) => {
       res.json(dtoUser.public(user));
     })
     .catch((err) => {
-      next(err);
+      return next(err);
     });
 });
 module.exports = router;

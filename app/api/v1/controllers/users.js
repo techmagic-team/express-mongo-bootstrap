@@ -22,7 +22,7 @@ router.get('/', (req, res, next) => {
       res.json(publicUsers);
     })
     .catch((err) => {
-      next(err);
+      return next(err);
     });
 });
 
@@ -36,8 +36,8 @@ router.get('/', (req, res, next) => {
  * @apiSuccess {String} user.firstname Firstname of the User.
  * @apiSuccess {String} user.lastname  Lastname of the User.
  */
-router.get('/:id', (req, res, next) => {
-  daoUser.findOne(req.params.id)
+router.get('/:user_id', (req, res, next) => {
+  daoUser.findOne(req.params.user_id)
     .then((user) => {
       if (!user) throw errorHelper.notFound();
       res.json(dtoUser.public(user));
@@ -82,9 +82,9 @@ router.post('/', (req, res, next) => {
  * @apiSuccess {String} firstname Firstname of the User.
  * @apiSuccess {String} lastname  Lastname of the User.
  */
-router.put('/:id', passportMiddleware.checkAuthToken, (req, res, next) => {
-  if (req.params.id != req.user._id) next(errorHelper.forbidden());
-  daoUser.update(req.params.id, req.body)
+router.put('/:user_id', passportMiddleware.checkAuthToken, (req, res, next) => {
+  if (req.params.user_id != req.user._id) next(errorHelper.forbidden());
+  daoUser.update(req.params.user_id, req.body)
     .then((user) => {
       res.json(dtoUser.public(user));
     })
@@ -104,9 +104,9 @@ router.put('/:id', passportMiddleware.checkAuthToken, (req, res, next) => {
  * @apiSuccess {String} firstname Firstname of the User.
  * @apiSuccess {String} lastname  Lastname of the User.
  */
-router.patch('/:id', passportMiddleware.checkAuthToken, (req, res, next) => {
-  if (req.params.id != req.user._id) next(errorHelper.forbidden());
-  daoUser.modify(req.params.id, req.body)
+router.patch('/:user_id', passportMiddleware.checkAuthToken, (req, res, next) => {
+  if (req.params.user_id != req.user._id) next(errorHelper.forbidden());
+  daoUser.modify(req.params.user_id, req.body)
     .then((user) => {
       res.json(dtoUser.public(user));
     })
@@ -125,13 +125,13 @@ router.patch('/:id', passportMiddleware.checkAuthToken, (req, res, next) => {
  * @apiSuccess {String} firstname Firstname of the User.
  * @apiSuccess {String} lastname  Lastname of the User.
  */
-router.delete('/:id', (req, res, next) => {
-  daoUser.delete(req.params.id)
+router.delete('/:user_id', (req, res, next) => {
+  daoUser.delete(req.params.user_id)
     .then(() => {
       res.sendStatus(204);
     })
     .catch((err) => {
-      next(err);
+      return next(err);
     });
 });
 module.exports = router;

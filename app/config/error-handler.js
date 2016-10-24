@@ -7,7 +7,7 @@ module.exports = (app) => {
     const err = new Error('NOT_FOUND');
     err.code = 404;
     err.message = 'NOT_FOUND';
-    next(err);
+    return next(err);
   });
 
   // error handler

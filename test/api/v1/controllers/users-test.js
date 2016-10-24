@@ -6,6 +6,7 @@ const sinon = require('sinon');
 const userModel = require('./../../../../app/models/user.js');
 const server = require('../../../../app/index');
 const mocha = require('mocha');
+const sendEmail = require('./../../../../app/utils/sendEmail');
 
 chai.should();
 chai.use(chaiHttp);
@@ -97,6 +98,15 @@ mocha.describe('Users API v1', () => {
     });
   });
   mocha.describe('POST /users', () => {
+    let stub;
+    mocha.beforeEach((done) => {
+      stub = sinon.stub(sendEmail.client, 'sendEmail').yields(null);
+      done();
+    });
+    mocha.afterEach((done) => {
+      stub.restore();
+      done();
+    });
     mocha.it('should add a SINGLE user on /users POST', (done) => {
       chai.request(server)
         .post('/v1/users')
