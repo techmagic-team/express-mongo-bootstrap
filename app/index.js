@@ -3,12 +3,16 @@
 const express = require('express');
 const http = require('http');
 const path = require('path');
-const env = process.env.NODE_ENV || 'development';
-const _config = require('./config/_config.json')[env];
-const apiV1 = require('./api/v1/controllers');
 
 const app = express();
+const _config = require('./config/_config.json')[app.get('env')];
+// Bootstrap application settings
+require('./config/express')(app);
 
+// Routing
+app.use('/v1', require('./api/v1/controllers'));
+
+// db connection and settings
 const connection = require('./config/connection');
 const mongoose = connection.getMongoose();
 
@@ -18,17 +22,18 @@ if (_config.seed) {
   mongooseHelper.dropCollections(mongoose);
   mongooseHelper.seedDatabase(seedsPath, mongoose);
 }
-// Bootstrap application settings
-require('./config/express')(app);
-
-app.use('/v1', apiV1);
 
 // error-handler settings
 require('./config/error-handler')(app);
 
-const port = process.env.VCAP_APP_PORT || 3000;
+// log
+if (_config.debug) {
+  const morgan = require('morgan');
+  app.use(morgan(':method :url :status :response-time'));
+}
 
-// *** server config *** //
+// create server
+const port = process.env.VCAP_APP_PORT || 3000;
 const server = http.createServer(app);
 server.listen(port, () => {
   console.log('listening at:', port);

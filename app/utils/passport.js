@@ -2,7 +2,7 @@
 
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const env = process.env.NODE_ENV || 'development';
+const env = require('express')().get('env');
 const _config = require('../config/_config.json')[env];
 const errorHelper = require('./errorHelper');
 

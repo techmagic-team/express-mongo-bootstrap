@@ -1,7 +1,7 @@
 'use strict';
 const mongoose = require('mongoose');
 
-const env = process.env.NODE_ENV || 'development';
+const env = require('express')().get('env');
 const _config = require('./../config/_config.json')[env];
 
 mongoose.set('debug', _config.debug);
