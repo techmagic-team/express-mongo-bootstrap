@@ -287,6 +287,22 @@ mocha.describe('Users API v1', () => {
           done();
         });
     });
+    mocha.it('should list an error on /users/:user_id with db error DELETE', (done) => {
+      const mock = sinon.mock(userModel);
+      mock.expects('findByIdAndRemove').returns(new Promise((resolve, reject) => reject(new Error())));
+      chai.request(server)
+        .delete('/v1/users/57fe2450916165b0b8b20be2')
+        .set('Authorization', adminAccessToken)
+        .end((err, res) => {
+          res.should.have.status(500);
+          res.body.should.be.an('object');
+          res.body.should.have.property('error');
+          res.body.error.should.be.equal('SERVER_ERROR');
+          mock.verify();
+          mock.restore();
+          done();
+        });
+    });
     mocha.it('should list an error on /users/:user_id, accessToken is not admin DELETE', (done) => {
       chai.request(server)
         .delete('/v1/users/57fe2450916165b0b8b20be2')
