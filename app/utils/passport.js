@@ -20,11 +20,9 @@ module.exports.extractAuthToken = (authToken, token) => {
   return new Promise((resolve, reject) => {
     jwt.verify(authToken, tokenSecret, (err, decoded) => {
       if (err) {
-        console.error(err);
-        reject(err);
+        return reject(err);
       }
-      resolve(decoded);
-      return null;
+      return resolve(decoded);
     });
   });
 };

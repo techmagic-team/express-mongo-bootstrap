@@ -13,9 +13,9 @@ module.exports = (app) => {
   // error handler
   app.use((err, req, res, next) => {
     const error = {
-      code: err.code || 500,
-      error: err.error || err.message,
-      message: err.message || err.error
+      code: err.code,
+      error: err.error,
+      message: err.message
     };
     res.status(error.code).json(error);
   });

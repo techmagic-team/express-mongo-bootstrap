@@ -41,7 +41,7 @@ module.exports.sendWelcomeEmail = (obj) => {
       const send = this.sendEmail(email);
       return resolve(send);
     } catch (err) {
-      reject(err);
+      return reject(err);
     }
   }).then((data) => {
     return data;
