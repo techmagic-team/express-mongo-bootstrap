@@ -12,7 +12,7 @@ chai.should();
 chai.use(chaiHttp);
 
 mocha.describe('Users API v1', () => {
-  let accessToken;
+  let accessToken, adminAccessToken;
   mocha.before((done) => {
     chai.request(server)
       .post('/v1/auth')
@@ -25,6 +25,21 @@ mocha.describe('Users API v1', () => {
         res.body.should.be.an('object');
         res.body.should.have.property('accessToken');
         accessToken = res.body.accessToken;
+        done();
+      });
+  });
+  mocha.before((done) => {
+    chai.request(server)
+      .post('/v1/auth')
+      .send({
+        email: 'john.doe@awesome.com',
+        password: 'qwerty'
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.an('object');
+        res.body.should.have.property('accessToken');
+        adminAccessToken = res.body.accessToken;
         done();
       });
   });
@@ -252,7 +267,8 @@ mocha.describe('Users API v1', () => {
   mocha.describe('DELETE /users/:user_id', () => {
     mocha.it('should delete a SINGLE user on /users/:user_id DELETE', (done) => {
       chai.request(server)
-        .delete('/v1/users/57fe2450916165b0b8b20be2')
+        .delete('/v1/users/57fe2450916165b0b8b20be3')
+        .set('Authorization', adminAccessToken)
         .end((err, res) => {
           res.should.have.status(204);
           res.body.should.be.empty;
@@ -262,11 +278,35 @@ mocha.describe('Users API v1', () => {
     mocha.it('should list an error on /users/:invalid_id DELETE', (done) => {
       chai.request(server)
         .delete('/v1/users/1')
+        .set('Authorization', adminAccessToken)
         .end((err, res) => {
           res.should.have.status(500);
           res.body.should.be.an('object');
           res.body.should.have.property('error');
           res.body.error.should.be.equal('SERVER_ERROR');
+          done();
+        });
+    });
+    mocha.it('should list an error on /users/:user_id, accessToken is not admin DELETE', (done) => {
+      chai.request(server)
+        .delete('/v1/users/57fe2450916165b0b8b20be2')
+        .set('Authorization', accessToken)
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.be.an('object');
+          res.body.should.have.property('error');
+          res.body.error.should.be.equal('FORBIDDEN');
+          done();
+        });
+    });
+    mocha.it('should list an error on /users/:user_id, without accessToken DELETE', (done) => {
+      chai.request(server)
+        .delete('/v1/users/57fe2450916165b0b8b20be2')
+        .end((err, res) => {
+          res.should.have.status(403);
+          res.body.should.be.an('object');
+          res.body.should.have.property('error');
+          res.body.error.should.be.equal('FORBIDDEN');
           done();
         });
     });

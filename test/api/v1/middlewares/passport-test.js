@@ -30,7 +30,7 @@ mocha.describe('Middleware passport:', () => {
       });
     });
     mocha.it('should catch forbidden error with no existed user', (done) => {
-      const authorization = passportUtil.createAuthToken({_id: '57fe2450916165b0b8b20be0'});
+      const authorization = passportUtil.createAuthToken({_id: '57fe2450916165b000000be0'});
       passportMiddleware.checkAuthToken({headers: { authorization: authorization}}, null, (err) => {
         err.should.be.an('error');
         chai.should().exist(err.message);

@@ -131,7 +131,8 @@ router.patch('/:user_id', passportMiddleware.checkAuthToken, (req, res, next) =>
  * @apiSuccess {String} firstname Firstname of the User.
  * @apiSuccess {String} lastname  Lastname of the User.
  */
-router.delete('/:user_id', (req, res, next) => {
+router.delete('/:user_id', passportMiddleware.checkAuthToken, (req, res, next) => {
+  if (res.locals.user.role != 1) return next(errorHelper.forbidden());
   return daoUser.delete(req.user._id)
     .then(() => {
       res.sendStatus(204);

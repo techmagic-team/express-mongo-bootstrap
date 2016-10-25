@@ -17,6 +17,7 @@ const user = new Schema({
     default: ''
   },
   password: {type: String, default: ''},
+  role: {type: Number, default: 0}
 }, {
   collection: 'users',
   _id: true
