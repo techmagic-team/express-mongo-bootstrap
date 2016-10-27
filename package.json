@@ -9,6 +9,7 @@
     "test": "NODE_ENV=test mocha test/** --recursive",
     "cover": "NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/** --recursive",
     "jslinter": "eslint app/**/*.js test/**/*.js",
+    "apidoc": "./node_modules/apidoc/bin/apidoc -i app/ -o apidoc/",
     "postinstall": "cp git-hooks/pre-commit .git/hooks/ && chmod +x .git/hooks/pre-commit"
   },
   "repository": {

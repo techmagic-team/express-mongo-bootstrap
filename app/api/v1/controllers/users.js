@@ -20,11 +20,11 @@ router.param('user_id', function(req, res, next, id) {
     });
 });
 /**
- * @api {get} /users.json GET users.json listing.
+ * @api {get} /users GET users listing.
  * @apiName GetUsers
  * @apiGroup Users
  *
- * @apiSuccess {object[]} List of users.json.
+ * @apiSuccess {object[]} List of users.
  */
 router.get('/', (req, res, next) => {
   return daoUser.findAll()
@@ -38,14 +38,15 @@ router.get('/', (req, res, next) => {
 });
 
 /**
- * @api {get} /user/:id Request User information
+ * @api {get} /user/:user_id Request User information
  * @apiName GetUser
  * @apiGroup Users
  *
- * @apiParam {Number} id Users unique ID.
+ * @apiParam {Number} user_id Users unique ID.
  *
  * @apiSuccess {String} user.firstname Firstname of the User.
  * @apiSuccess {String} user.lastname  Lastname of the User.
+ * @apiSuccess {String} user.email  Email.
  */
 router.get('/:user_id', (req, res, next) => {
   if (!req.user) next(errorHelper.notFound());
@@ -61,6 +62,7 @@ router.get('/:user_id', (req, res, next) => {
  *
  * @apiSuccess {String} firstname Firstname of the User.
  * @apiSuccess {String} lastname  Lastname of the User.
+ * @apiSuccess {String} user.email  Email.
  */
 router.post('/', (req, res, next) => {
   return daoUser.create(req.body)
@@ -86,6 +88,7 @@ router.post('/', (req, res, next) => {
  *
  * @apiSuccess {String} firstname Firstname of the User.
  * @apiSuccess {String} lastname  Lastname of the User.
+ * @apiSuccess {String} email  User's email.
  */
 router.put('/:user_id', passportMiddleware.checkAuthToken, (req, res, next) => {
   if (!req.user._id.equals(res.locals.user._id)) return next(errorHelper.forbidden());
@@ -108,12 +111,12 @@ router.put('/:user_id', passportMiddleware.checkAuthToken, (req, res, next) => {
  *
  * @apiSuccess {String} firstname Firstname of the User.
  * @apiSuccess {String} lastname  Lastname of the User.
+ * @apiSuccess {String} email  User's email.
  */
 router.patch('/:user_id', passportMiddleware.checkAuthToken, (req, res, next) => {
   if (!req.user._id.equals(res.locals.user._id)) return next(errorHelper.forbidden());
   return daoUser.modify(req.user._id, req.body)
     .then((user) => {
-      console.log(req.user._id, user);
       res.json(dtoUser.public(user));
     })
     .catch((err) => {
@@ -128,8 +131,7 @@ router.patch('/:user_id', passportMiddleware.checkAuthToken, (req, res, next) =>
  *
  * @apiParam {Number} id Users unique ID.
  *
- * @apiSuccess {String} firstname Firstname of the User.
- * @apiSuccess {String} lastname  Lastname of the User.
+ * @apiSuccess (204).
  */
 router.delete('/:user_id', passportMiddleware.checkAuthToken, (req, res, next) => {
   if (res.locals.user.role != 1) return next(errorHelper.forbidden());

@@ -5,9 +5,9 @@
     "token": "7C91A11D-D48D-4C52-98FB-E10E876500B7",
     "debug": true,
     "aws": {
-      "accessKeyId": "AKIAIZ4CXB7U5RB3FYZA",
-      "secretAccessKey": "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",
-      "region": "eu-west-1"
+      "accessKeyId": "***",
+      "secretAccessKey": "***",
+      "region": "***"
     },
     "email": "ihor.fito@techmagic.co"
   },
@@ -17,9 +17,9 @@
     "token": "7C91A11D-D48D-4C52-98FB-E10E876501B7",
     "debug": true,
     "aws": {
-      "accessKeyId": "AKIAIZ4CXB7U5RB3FYZA",
-      "secretAccessKey": "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",
-      "region": "eu-west-1"
+      "accessKeyId": "***",
+      "secretAccessKey": "***",
+      "region": "***"
     },
     "email": "ihor.fito@techmagic.co"
   }

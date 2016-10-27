@@ -17,7 +17,7 @@ module.exports.sendEmail = (emailBody) => {
   return new Promise((resolve, reject) => {
     this.client.sendEmail(emailBody, (err) => {
       if (err) {
-        const error = errorHelper.serverError(err.message);
+        const error = errorHelper.serverError(err.Message);
         return reject(error);
       }
       return resolve(true);
