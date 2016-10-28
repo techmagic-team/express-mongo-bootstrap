@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node ./app/",
     "test": "NODE_ENV=test mocha test/** --recursive",
-    "cover": "NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/** --recursive",
+    "cover": "NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/** --recursive",
     "jslinter": "eslint app/**/*.js test/**/*.js",
     "apidoc": "./node_modules/apidoc/bin/apidoc -i app/ -o apidoc/",
     "postinstall": "cp git-hooks/pre-commit .git/hooks/ && chmod +x .git/hooks/pre-commit"
@@ -44,6 +44,7 @@
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "eslint": "^3.7.1",
+    "istanbul": "^0.4.5",
     "mocha": "^3.1.2",
     "mongodb": "^2.2.10",
     "sinon": "^1.17.6",
