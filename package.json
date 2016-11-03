@@ -6,11 +6,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./app/",
-    "test": "NODE_ENV=test mocha test/** --recursive",
-    "cover": "NODE_ENV=test istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/** --recursive",
-    "jslinter": "eslint app/**/*.js test/**/*.js",
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha test/** --recursive",
+    "cover": "NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/** --recursive",
+    "jslinter": "./node_modules/.bin/eslint app/** test/**",
     "apidoc": "./node_modules/apidoc/bin/apidoc -i app/ -o apidoc/",
-    "postinstall": "cp git-hooks/pre-commit .git/hooks/ && chmod +x .git/hooks/pre-commit"
+    "postinstall": "npm run cover && npm run apidoc"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
     "aws-sdk": "^2.6.10",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "joi": "^9.2.0",
     "jsonwebtoken": "^7.1.9",
     "mongoose": "^4.6.3",
     "morgan": "^1.7.0",
@@ -44,6 +45,7 @@
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "eslint": "^3.7.1",
+    "istanbul": "^0.4.5",
     "mocha": "^3.1.2",
     "mongodb": "^2.2.10",
     "sinon": "^1.17.6",

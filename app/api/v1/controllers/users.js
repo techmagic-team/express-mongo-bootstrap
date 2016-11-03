@@ -6,6 +6,7 @@ const daoUser = require('./../dao/user');
 const dtoUser = require('./../dto/user');
 const errorHelper = require('./../../../utils/errorHelper');
 const passportMiddleware = require('./../middlewares/passport');
+const userMiddleware = require('./../middlewares/user');
 const sendEmailUtil = require('./../../../utils/sendEmail');
 
 router.param('user_id', function(req, res, next, id) {
@@ -19,12 +20,13 @@ router.param('user_id', function(req, res, next, id) {
       return next(err);
     });
 });
+
 /**
- * @api {get} /users GET users listing.
+ * @api {get} /users GET users
  * @apiName GetUsers
- * @apiGroup Users
+ * @apiGroup users
  *
- * @apiSuccess {object[]} List of users.
+ * @apiUse dtoUsersPublic
  */
 router.get('/', (req, res, next) => {
   return daoUser.findAll()
@@ -38,15 +40,13 @@ router.get('/', (req, res, next) => {
 });
 
 /**
- * @api {get} /user/:user_id Request User information
+ * @api {get} /users/:user_id Request User information
  * @apiName GetUser
- * @apiGroup Users
+ * @apiGroup users
  *
  * @apiParam {Number} user_id Users unique ID.
  *
- * @apiSuccess {String} user.firstname Firstname of the User.
- * @apiSuccess {String} user.lastname  Lastname of the User.
- * @apiSuccess {String} user.email  Email.
+ * @apiUse dtoUserPublic
  */
 router.get('/:user_id', (req, res, next) => {
   if (!req.user) next(errorHelper.notFound());
@@ -54,15 +54,16 @@ router.get('/:user_id', (req, res, next) => {
 });
 
 /**
- * @api {post} /user/:id Create User
+ * @api {post} /users Create User
  * @apiName CreateUser
- * @apiGroup Users
+ * @apiGroup users
  *
- * @apiParam {object} user User Information
+ * @apiParam {String} email Optional email.
+ * @apiParam {String} [firstName] Optional firstName.
+ * @apiParam {String} [lastName] Optional lastName.
+ * @apiParam {String} [password] Optional password.
  *
- * @apiSuccess {String} firstname Firstname of the User.
- * @apiSuccess {String} lastname  Lastname of the User.
- * @apiSuccess {String} user.email  Email.
+ * @apiUse dtoUserPublic
  */
 router.post('/', (req, res, next) => {
   return daoUser.create(req.body)
@@ -79,18 +80,15 @@ router.post('/', (req, res, next) => {
 });
 
 /**
- * @api {put} /user/:id Update User information
- * @apiName UpdateEntireUser
- * @apiGroup Users
+ * @api {put} /users/:user_id Update User Doc
+ * @apiName UpdateUser
+ * @apiGroup users
+ * @apiPermission user
  *
- * @apiParam {Number} id Users unique ID.
- * @apiParam {Number} user User (entire object)
- *
- * @apiSuccess {String} firstname Firstname of the User.
- * @apiSuccess {String} lastname  Lastname of the User.
- * @apiSuccess {String} email  User's email.
+ * @apiUse updateUserParams
+ * @apiUse dtoUserPublic
  */
-router.put('/:user_id', passportMiddleware.checkAuthToken, (req, res, next) => {
+router.put('/:user_id', passportMiddleware.checkAuthToken, userMiddleware.validateUpdate, (req, res, next) => {
   if (!req.user._id.equals(res.locals.user._id)) return next(errorHelper.forbidden());
   return daoUser.update(req.user._id, req.body)
     .then((user) => {
@@ -102,18 +100,15 @@ router.put('/:user_id', passportMiddleware.checkAuthToken, (req, res, next) => {
 });
 
 /**
- * @api {patch} /partial/:id Update User information
+ * @api {patch} /users/:user_id Update User information
  * @apiName UpdatePartialUser
- * @apiGroup Users
+ * @apiGroup users
+ * @apiPermission user
  *
- * @apiParam {Number} id Users unique ID.
- * @apiParam {Number} user User (partial object)
- *
- * @apiSuccess {String} firstname Firstname of the User.
- * @apiSuccess {String} lastname  Lastname of the User.
- * @apiSuccess {String} email  User's email.
+ * @apiUse updateUserParams
+ * @apiUse dtoUserPublic
  */
-router.patch('/:user_id', passportMiddleware.checkAuthToken, (req, res, next) => {
+router.patch('/:user_id', passportMiddleware.checkAuthToken, userMiddleware.validateUpdate, (req, res, next) => {
   if (!req.user._id.equals(res.locals.user._id)) return next(errorHelper.forbidden());
   return daoUser.modify(req.user._id, req.body)
     .then((user) => {
@@ -125,11 +120,12 @@ router.patch('/:user_id', passportMiddleware.checkAuthToken, (req, res, next) =>
 });
 
 /**
- * @api {delete} /user/:id Delete User
+ * @api {delete} /users/:user_id Delete User
  * @apiName DeleteUser
- * @apiGroup Users
+ * @apiGroup users
+ * @apiPermission user
  *
- * @apiParam {Number} id Users unique ID.
+ * @apiParam {Number} user_id Users unique ID.
  *
  * @apiSuccess (204).
  */

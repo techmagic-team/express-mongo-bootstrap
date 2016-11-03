@@ -185,10 +185,10 @@ mocha.describe('Users API v1', () => {
           lastName: 'lastName'
         })
         .end((err, res) => {
-          res.should.have.status(500);
+          res.should.have.status(400);
           res.body.should.be.an('object');
           res.body.should.have.property('error');
-          res.body.error.should.be.equal('SERVER_ERROR');
+          res.body.error.should.be.equal('BAD_REQUEST');
           done();
         });
     });
@@ -241,10 +241,10 @@ mocha.describe('Users API v1', () => {
           lastName: 'lastName'
         })
         .end((err, res) => {
-          res.should.have.status(500);
+          res.should.have.status(400);
           res.body.should.be.an('object');
           res.body.should.have.property('error');
-          res.body.error.should.be.equal('SERVER_ERROR');
+          res.body.error.should.be.equal('BAD_REQUEST');
           done();
         });
     });
