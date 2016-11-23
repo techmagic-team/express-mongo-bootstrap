@@ -36,3 +36,11 @@ module.exports.forbidden = (err) => {
   error.code = 403;
   return error;
 };
+
+module.exports.invalidJoi = (err) => {
+  let result = '';
+  for (const error of err.details) {
+    result += error.message + '; ';
+  }
+  return this.badRequest(result);
+};

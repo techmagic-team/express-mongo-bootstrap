@@ -3,10 +3,13 @@
 const express = require('express');
 const http = require('http');
 const path = require('path');
+const env = process.env.NODE_ENV || 'local';
+const _config = require('./config/_config.json')[env];
 
 const app = express();
-const _config = require('./config/_config.json')[app.get('env')];
 // Bootstrap application settings
+app.set('env', env);
+
 require('./config/express')(app);
 
 // Routing
@@ -33,7 +36,7 @@ if (_config.debug) {
 }
 
 // create server
-const port = process.env.VCAP_APP_PORT || 3000;
+const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 server.listen(port, () => {
   console.log('listening at:', port);

@@ -4,7 +4,10 @@ const mongoose = require('mongoose');
 const passportUtil = require('./../utils/passport');
 
 const Schema = mongoose.Schema;
-
+/**
+ * @apiDefine user User access only
+ * This optional description belong to to the group user.
+ */
 const user = new Schema({
   firstName: {type: String, trim: true, default: ''},
   lastName: {type: String, trim: true, default: ''},

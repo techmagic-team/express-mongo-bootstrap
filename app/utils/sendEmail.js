@@ -1,6 +1,6 @@
 'use strict';
 
-const env = require('express')().get('env');
+const env = process.env.NODE_ENV || 'local';
 const _config = require('../config/_config.json')[env];
 const errorHelper = require('./errorHelper');
 const pug = require('pug');
