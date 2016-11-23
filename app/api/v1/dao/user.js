@@ -2,6 +2,7 @@
 
 const userModel = require('./../../../models/user.js');
 const errorHelper = require('./../../../utils/errorHelper');
+const passportUtil = require('./../../../utils/passport');
 module.exports.create = (data) => {
   return userModel.create(data)
     .then((data) => {
@@ -33,6 +34,7 @@ module.exports.findOne = (id) => {
 };
 
 module.exports.update = (id, data) => {
+  if (data.password) data.password = passportUtil.encryptPassword(data.password);
   return userModel.findByIdAndUpdate(id, data, {new: true, overwrite: true, runValidators: true})
     .then((data) => {
       return data;
@@ -43,6 +45,7 @@ module.exports.update = (id, data) => {
 };
 
 module.exports.modify = (id, data) => {
+  if (data.password) data.password = passportUtil.encryptPassword(data.password);
   return userModel.findByIdAndUpdate(id, {$set: data}, {new: true, runValidators: true})
     .then((data) => {
       return data;
