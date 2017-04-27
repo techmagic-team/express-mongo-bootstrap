@@ -1,10 +1,10 @@
-'use strict';
+'use strict'
 
-const mongoose = require('mongoose');
-const passportUtil = require('./../utils/passport');
-const validate = require('./../config/validate');
+const mongoose = require('mongoose')
+const passportUtil = require('./../utils/passport')
+const validate = require('./../config/validate')
 
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 /**
  * @apiDefine user User access only
  * This optional description belong to to the group user.
@@ -25,15 +25,15 @@ const user = new Schema({
 }, {
   collection: 'users',
   _id: true
-});
+})
 
 user.path('password').set((value) => {
-  return passportUtil.encryptPassword(value);
-});
+  return passportUtil.encryptPassword(value)
+})
 
 user.path('email').validate((value) => {
-  const emailRegex = validate.email;
-  return emailRegex.test(value);
-}, 'Please fill a valid email address');
+  const emailRegex = validate.email
+  return emailRegex.test(value)
+}, 'Please fill a valid email address')
 
-module.exports = mongoose.model('user', user);
+module.exports = mongoose.model('user', user)

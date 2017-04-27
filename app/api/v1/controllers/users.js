@@ -1,25 +1,25 @@
-'use strict';
+'use strict'
 
-const express = require('express');
-const router = express.Router();
-const daoUser = require('./../dao/user');
-const dtoUser = require('./../dto/user');
-const errorHelper = require('./../../../utils/errorHelper');
-const passportMiddleware = require('./../middlewares/passport');
-const userMiddleware = require('./../middlewares/user');
-const sendEmailUtil = require('./../../../utils/sendEmail');
+const express = require('express')
+const router = express.Router()
+const daoUser = require('./../dao/user')
+const dtoUser = require('./../dto/user')
+const errorHelper = require('./../../../utils/errorHelper')
+const passportMiddleware = require('./../middlewares/passport')
+const userMiddleware = require('./../middlewares/user')
+const sendEmailUtil = require('./../../../utils/sendEmail')
 
-router.param('user_id', function(req, res, next, id) {
+router.param('user_id', function (req, res, next, id) {
   // try to get the user details from the User model and attach it to the request object
   return daoUser.findOne(id)
     .then((user) => {
-      req.user = user;
-      return next();
+      req.user = user
+      return next()
     })
     .catch((err) => {
-      return next(err);
-    });
-});
+      return next(err)
+    })
+})
 
 /**
  * @api {get} /users GET users
@@ -31,13 +31,13 @@ router.param('user_id', function(req, res, next, id) {
 router.get('/', (req, res, next) => {
   return daoUser.findAll()
     .then((users) => {
-      const publicUsers = users.map((user) => dtoUser.public(user));
-      res.json(publicUsers);
+      const publicUsers = users.map((user) => dtoUser.public(user))
+      res.json(publicUsers)
     })
     .catch((err) => {
-      return next(err);
-    });
-});
+      return next(err)
+    })
+})
 
 /**
  * @api {get} /users/:user_id Request User information
@@ -49,9 +49,9 @@ router.get('/', (req, res, next) => {
  * @apiUse dtoUserPublic
  */
 router.get('/:user_id', (req, res, next) => {
-  if (!req.user) next(errorHelper.notFound());
-  res.json(dtoUser.public(req.user));
-});
+  if (!req.user) next(errorHelper.notFound())
+  res.json(dtoUser.public(req.user))
+})
 
 /**
  * @api {post} /users Create User
@@ -68,16 +68,16 @@ router.get('/:user_id', (req, res, next) => {
 router.post('/', (req, res, next) => {
   return daoUser.create(req.body)
     .then((user) => {
-      return Promise.all([user, sendEmailUtil.sendWelcomeEmail(user)]);
+      return Promise.all([user, sendEmailUtil.sendWelcomeEmail(user)])
     })
     .then((data) => {
-      const user = data[0];
-      res.json(dtoUser.public(user));
+      const user = data[0]
+      res.json(dtoUser.public(user))
     })
     .catch((err) => {
-      return next(err);
-    });
-});
+      return next(err)
+    })
+})
 
 /**
  * @api {put} /users/:user_id Update User Doc
@@ -89,15 +89,15 @@ router.post('/', (req, res, next) => {
  * @apiUse dtoUserPublic
  */
 router.put('/:user_id', passportMiddleware.checkAuthToken, userMiddleware.validateUpdate, (req, res, next) => {
-  if (!req.user._id.equals(res.locals.user._id)) return next(errorHelper.forbidden());
+  if (!req.user._id.equals(res.locals.user._id)) return next(errorHelper.forbidden())
   return daoUser.update(req.user._id, req.body)
     .then((user) => {
-      res.json(dtoUser.public(user));
+      res.json(dtoUser.public(user))
     })
     .catch((err) => {
-      return next(err);
-    });
-});
+      return next(err)
+    })
+})
 
 /**
  * @api {patch} /users/:user_id Update User information
@@ -109,15 +109,15 @@ router.put('/:user_id', passportMiddleware.checkAuthToken, userMiddleware.valida
  * @apiUse dtoUserPublic
  */
 router.patch('/:user_id', passportMiddleware.checkAuthToken, userMiddleware.validateUpdate, (req, res, next) => {
-  if (!req.user._id.equals(res.locals.user._id)) return next(errorHelper.forbidden());
+  if (!req.user._id.equals(res.locals.user._id)) return next(errorHelper.forbidden())
   return daoUser.modify(req.user._id, req.body)
     .then((user) => {
-      res.json(dtoUser.public(user));
+      res.json(dtoUser.public(user))
     })
     .catch((err) => {
-      return next(err);
-    });
-});
+      return next(err)
+    })
+})
 
 /**
  * @api {delete} /users/:user_id Delete User
@@ -130,13 +130,13 @@ router.patch('/:user_id', passportMiddleware.checkAuthToken, userMiddleware.vali
  * @apiSuccess (204).
  */
 router.delete('/:user_id', passportMiddleware.checkAuthToken, (req, res, next) => {
-  if (res.locals.user.role != 1) return next(errorHelper.forbidden());
+  if (res.locals.user.role !== 1) return next(errorHelper.forbidden())
   return daoUser.delete(req.user._id)
     .then(() => {
-      res.sendStatus(204);
+      res.sendStatus(204)
     })
     .catch((err) => {
-      return next(err);
-    });
-});
-module.exports = router;
+      return next(err)
+    })
+})
+module.exports = router
