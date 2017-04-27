@@ -10,7 +10,7 @@
     "cover": "NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/** --recursive",
     "jslinter": "./node_modules/.bin/eslint app/** test/**",
     "apidoc": "./node_modules/apidoc/bin/apidoc -i app/ -o apidoc/",
-    "postinstall": "npm run cover && npm run apidoc"
+    "postinstall": "cp git-hooks/pre-commit .git/hooks/ && chmod +x .git/hooks/pre-commit && npm run cover && npm run apidoc"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/techmagic-team/express-mongo-bootstrap#readme",
   "dependencies": {
+    "async": "^2.3.0",
     "aws-sdk": "^2.6.10",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",

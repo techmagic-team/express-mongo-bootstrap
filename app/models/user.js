@@ -2,6 +2,7 @@
 
 const mongoose = require('mongoose');
 const passportUtil = require('./../utils/passport');
+const validate = require('./../config/validate');
 
 const Schema = mongoose.Schema;
 /**
@@ -31,7 +32,7 @@ user.path('password').set((value) => {
 });
 
 user.path('email').validate((value) => {
-  const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/;
+  const emailRegex = validate.email;
   return emailRegex.test(value);
 }, 'Please fill a valid email address');
 
