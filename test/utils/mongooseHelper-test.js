@@ -14,14 +14,14 @@ mocha.describe('mongooseHelper:', () => {
   mocha.describe('#dropCollections()', () => {
     mocha.before((done) => {
       mongooseHelper.dropCollections(null, (err) => {
-        expect(err).to.equal(null)
+        expect(err).to.be.equal(null)
         done()
       })
     })
     mocha.it('should drop collections of database', (done) => {
       mongoose.model('user').count((err, count) => {
-        chai.should().not.exist(err)
-        count.should.be.equal(0)
+        expect(err).to.not.exist
+        expect(count).to.be.equal(0)
         done()
       })
     })
@@ -30,13 +30,13 @@ mocha.describe('mongooseHelper:', () => {
     mocha.before((done) => {
       const seedsPath = path.join(__dirname, '../../app/seeds')
       mongooseHelper.seedDatabase(seedsPath, null, (err) => {
-        chai.should().not.exist(err)
+        expect(err).to.not.exist
         done()
       })
     })
     mocha.it('should seed database', (done) => {
       mongoose.model('user').count((err, count) => {
-        chai.should().not.exist(err)
+        expect(err).to.not.exist
         done()
       })
     })

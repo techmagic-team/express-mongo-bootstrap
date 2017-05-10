@@ -4,8 +4,7 @@ const chai = require('chai')
 const chaiHttp = require('chai-http')
 const server = require('./../app/index')
 const mocha = require('mocha')
-
-chai.should()
+const expect = chai.expect
 chai.use(chaiHttp)
 
 mocha.describe('Server', () => {
@@ -13,11 +12,11 @@ mocha.describe('Server', () => {
     chai.request(server)
       .get('/v0')
       .end((err, res) => {
-        chai.should().exist(err)
-        res.should.have.status(404)
-        res.body.should.be.an('object')
-        res.body.should.have.property('error')
-        res.body.error.should.be.equal('NOT_FOUND')
+        expect(err).to.exist
+        expect(res).to.have.status(404)
+        expect(res.body).to.be.an('object')
+        expect(res.body).to.have.property('error')
+        expect(res.body.error).to.be.equal('NOT_FOUND')
         done()
       })
   })
