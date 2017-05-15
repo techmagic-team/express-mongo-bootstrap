@@ -39,11 +39,37 @@ module.exports.checkAuthToken = (req, res, next) => {
       return this.concatUserPermissions(user)
     })
     .then((user) => {
-      console.log(user)
       res.locals.user = user
       return next()
     })
     .catch((err) => {
       return next(err)
     })
+}
+
+module.exports.checkPermissions = (required) => {
+  if (typeof required === 'string') required = [required]
+  return (req, res, next) => {
+    try {
+      const user = res.locals.user
+      if (!user) {
+        throw errorHelper.serverError('User object was not found. Check your configuration.')
+      }
+      if (!user.permissions) {
+        throw errorHelper.serverError('Could not find permissions for user. Bad configuration?')
+      }
+      if (!Array.isArray(required)) {
+        throw errorHelper.serverError('Permissions should be an Array. Bad format?')
+      }
+      const sufficient = required.every(function (permission) {
+        return user.permissions.indexOf(permission) !== -1
+      })
+      if (!sufficient) {
+        return next(errorHelper.forbidden())
+      }
+      return next()
+    } catch (err) {
+      return next(err)
+    }
+  }
 }
