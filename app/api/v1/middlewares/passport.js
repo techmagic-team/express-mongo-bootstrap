@@ -6,6 +6,20 @@ const daoGroups = require('./../dao/group')
 const errorHelper = require('./../../../utils/errorHelper')
 const passportUtil = require('./../../../utils/passport')
 
+module.exports.concatUserPermissions = (user) => {
+  return daoGroups.findAll({ids: user.groups})
+    .then((groups) => {
+      groups.forEach((group) => {
+        user.permissions = user.permissions.concat(group.permissions)
+      })
+      user.permissions = [...new Set(user.permissions)]
+      return user
+    })
+    .catch((err) => {
+      throw errorHelper.serverError(err)
+    })
+}
+
 module.exports.checkAuthToken = (req, res, next) => {
   const token = req.headers.authorization
   if (!token) {
@@ -22,15 +36,10 @@ module.exports.checkAuthToken = (req, res, next) => {
       if (user === null) {
         throw errorHelper.forbidden()
       }
-      return daoGroups.findAll({ids: user.groups})
-        .then((groups) => {
-          groups.forEach((group) => {
-            user.permissions.concat(group.permissions)
-          })
-          return user
-        })
+      return this.concatUserPermissions(user)
     })
     .then((user) => {
+      console.log(user)
       res.locals.user = user
       return next()
     })
