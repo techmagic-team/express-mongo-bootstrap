@@ -8,7 +8,8 @@
       "lastName": "Doe",
       "email": "john.doe@awesome.com",
       "password": "qwerty",
-      "role": 1
+      "role": 1,
+      "groups": ["58133d8488dbe7d5b0bfb745"]
     },
     {
       "_id": "57fe2450916165b0b8b20be2",

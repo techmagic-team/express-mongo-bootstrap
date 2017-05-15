@@ -1,0 +1,11 @@
+{
+  "model": "group",
+  "collection": "groups",
+  "data": [
+    {
+      "_id": "58133d8488dbe7d5b0bfb745",
+      "name": "Administrators",
+      "permissions": ["groups:fullAccess"]
+    }
+  ]
+}
