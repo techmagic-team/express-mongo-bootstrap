@@ -1,6 +1,7 @@
 'use strict'
 
 const daoUser = require('./../dao/user')
+const daoGroups = require('./../dao/group')
 
 const errorHelper = require('./../../../utils/errorHelper')
 const passportUtil = require('./../../../utils/passport')
@@ -21,6 +22,15 @@ module.exports.checkAuthToken = (req, res, next) => {
       if (user === null) {
         throw errorHelper.forbidden()
       }
+      return daoGroups.findAll({ids: user.groups})
+        .then((groups) => {
+          groups.forEach((group) => {
+            user.permissions.concat(group.permissions)
+          })
+          return user
+        })
+    })
+    .then((user) => {
       res.locals.user = user
       return next()
     })

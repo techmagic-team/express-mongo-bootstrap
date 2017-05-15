@@ -12,8 +12,15 @@ module.exports.create = (data) => {
     })
 }
 
-module.exports.findAll = () => {
-  return groupModel.find()
+module.exports.findAll = (options) => {
+  const q = {}
+  if (options.ids) {
+    q._id = {
+      $in: options.ids
+    }
+  }
+
+  return groupModel.find(q)
     .then((data) => {
       return data
     })
