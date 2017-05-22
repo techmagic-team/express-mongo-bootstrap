@@ -10,15 +10,15 @@ chai.use(chaiHttp)
 
 const mongooseHelper = require('./../../app/utils/mongooseHelper')
 
-mocha.describe('mongooseHelper:', () => {
-  mocha.describe('#dropCollections()', () => {
+describe('mongooseHelper:', () => {
+  describe('#dropCollections()', () => {
     mocha.before((done) => {
       mongooseHelper.dropCollections(null, (err) => {
         expect(err).to.be.equal(null)
         done()
       })
     })
-    mocha.it('should drop collections of database', (done) => {
+    it('should drop collections of database', (done) => {
       mongoose.model('user').count((err, count) => {
         expect(err).to.not.exist
         expect(count).to.be.equal(0)
@@ -26,7 +26,7 @@ mocha.describe('mongooseHelper:', () => {
       })
     })
   })
-  mocha.describe('#seedDatabase()', () => {
+  describe('#seedDatabase()', () => {
     mocha.before((done) => {
       const seedsPath = path.join(__dirname, '../../app/seeds')
       mongooseHelper.seedDatabase(seedsPath, null, (err) => {
@@ -34,7 +34,7 @@ mocha.describe('mongooseHelper:', () => {
         done()
       })
     })
-    mocha.it('should seed database', (done) => {
+    it('should seed database', (done) => {
       mongoose.model('user').count((err, count) => {
         expect(err).to.not.exist
         done()

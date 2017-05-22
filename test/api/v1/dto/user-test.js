@@ -1,14 +1,13 @@
 'use strict'
 
 const chai = require('chai')
-const mocha = require('mocha')
 chai.should()
 
 const dto = require('./../../../../app/api/v1/dto/user')
 
-mocha.describe('DTO User:', () => {
-  mocha.describe('#createAuthToken()', () => {
-    mocha.it('should return user', (done) => {
+describe('DTO User:', () => {
+  describe('#createAuthToken()', () => {
+    it('should return user', (done) => {
       const user = {
         _id: '_id',
         accessToken: 'accessToken',
@@ -25,8 +24,8 @@ mocha.describe('DTO User:', () => {
       done()
     })
   })
-  mocha.describe('#extractAuthToken()', () => {
-    mocha.it('should return user with null', (done) => {
+  describe('#extractAuthToken()', () => {
+    it('should return user with null', (done) => {
       const user = {}
       const dtoUser = dto.public(user)
       chai.assert.isNull(dtoUser._id)

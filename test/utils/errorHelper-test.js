@@ -2,16 +2,15 @@
 
 const chai = require('chai')
 const chaiHttp = require('chai-http')
-const mocha = require('mocha')
 
 chai.should()
 chai.use(chaiHttp)
 
 const errorHelper = require('./../../app/utils/errorHelper')
 
-mocha.describe('errorHelper:', () => {
-  mocha.describe('#serverError()', () => {
-    mocha.it('should return Error(`SERVER_ERROR`)', (done) => {
+describe('errorHelper:', () => {
+  describe('#serverError()', () => {
+    it('should return Error(`SERVER_ERROR`)', (done) => {
       const error = errorHelper.serverError('serverError')
       chai.should().exist(error.message)
       error.error.should.be.equal('SERVER_ERROR')
@@ -21,8 +20,8 @@ mocha.describe('errorHelper:', () => {
       done()
     })
   })
-  mocha.describe('#notFound()', () => {
-    mocha.it('should return Error(`NOT_FOUND`)', (done) => {
+  describe('#notFound()', () => {
+    it('should return Error(`NOT_FOUND`)', (done) => {
       const error = errorHelper.notFound('notFound')
       chai.should().exist(error.message)
       error.error.should.be.equal('NOT_FOUND')
@@ -32,8 +31,8 @@ mocha.describe('errorHelper:', () => {
       done()
     })
   })
-  mocha.describe('#badRequest()', () => {
-    mocha.it('should return Error(`BAD_REQUEST`)', (done) => {
+  describe('#badRequest()', () => {
+    it('should return Error(`BAD_REQUEST`)', (done) => {
       const error = errorHelper.badRequest('badRequest')
       chai.should().exist(error.message)
       error.error.should.be.equal('BAD_REQUEST')
@@ -43,8 +42,8 @@ mocha.describe('errorHelper:', () => {
       done()
     })
   })
-  mocha.describe('#forbidden()', () => {
-    mocha.it('should return Error(`FORBIDDEN`)', (done) => {
+  describe('#forbidden()', () => {
+    it('should return Error(`FORBIDDEN`)', (done) => {
       const error = errorHelper.forbidden('forbidden')
       chai.should().exist(error.message)
       error.error.should.be.equal('FORBIDDEN')

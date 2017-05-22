@@ -8,11 +8,11 @@ chai.should()
 
 const sendEmail = require('./../../app/utils/sendEmail')
 
-mocha.describe('sendEmail:', () => {
+describe('sendEmail:', () => {
   const user = {
     email: 'testemail@gmail.com'
   }
-  mocha.describe('#sendEmail()', () => {
+  describe('#sendEmail()', () => {
     let stub
     mocha.before((done) => {
       stub = sinon.stub(sendEmail.client, 'sendEmail').yields(null)
@@ -22,15 +22,15 @@ mocha.describe('sendEmail:', () => {
       stub.restore()
       done()
     })
-    mocha.it('should return true in Promise', (done) => {
+    it('should return true in Promise', (done) => {
       sendEmail.sendEmail(user).then((data) => {
         data.should.be.equal(true)
         done()
       })
     })
   })
-  mocha.describe('#sendWelcomeEmail()', () => {
-    mocha.describe('with success sending', () => {
+  describe('#sendWelcomeEmail()', () => {
+    describe('with success sending', () => {
       let stub
       mocha.beforeEach((done) => {
         stub = sinon.stub(sendEmail.client, 'sendEmail').yields(null)
@@ -40,14 +40,14 @@ mocha.describe('sendEmail:', () => {
         stub.restore()
         done()
       })
-      mocha.it('should return true', (done) => {
+      it('should return true', (done) => {
         sendEmail.sendWelcomeEmail(user)
           .then((data) => {
             data.should.be.equal(true)
             done()
           })
       })
-      mocha.it('should throw an Error', (done) => {
+      it('should throw an Error', (done) => {
         sendEmail.sendWelcomeEmail()
           .catch((err) => {
             chai.should().exist(err.message)
@@ -59,7 +59,7 @@ mocha.describe('sendEmail:', () => {
           })
       })
     })
-    mocha.describe('with fail result', () => {
+    describe('with fail result', () => {
       let stub
       mocha.before((done) => {
         stub = sinon.stub(sendEmail.client, 'sendEmail').yields(new Error())
@@ -69,7 +69,7 @@ mocha.describe('sendEmail:', () => {
         stub.restore()
         done()
       })
-      mocha.it('should return an Error', (done) => {
+      it('should return an Error', (done) => {
         sendEmail.sendWelcomeEmail(user)
           .catch((err) => {
             chai.should().exist(err.error)

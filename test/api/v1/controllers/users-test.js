@@ -11,7 +11,7 @@ const sendEmail = require('./../../../../app/utils/sendEmail')
 chai.should()
 chai.use(chaiHttp)
 
-mocha.describe('Users API v1', () => {
+describe('Users API v1', () => {
   let accessToken, adminAccessToken
   mocha.before((done) => {
     chai.request(server)
@@ -45,8 +45,8 @@ mocha.describe('Users API v1', () => {
         done()
       })
   })
-  mocha.describe('GET /users', () => {
-    mocha.it('should list users on /users GET', (done) => {
+  describe('GET /users', () => {
+    it('should list users on /users GET', (done) => {
       chai.request(server)
         .get('/v1/users')
         .end((err, res) => {
@@ -57,7 +57,7 @@ mocha.describe('Users API v1', () => {
           done()
         })
     })
-    mocha.describe('mockUserModel:', () => {
+    describe('mockUserModel:', () => {
       const mockUserModel = sinon.mock(userModel)
       const rejectPromise = new Promise((resolve, reject) => reject(new Error()))
       mocha.before(() => {
@@ -67,7 +67,7 @@ mocha.describe('Users API v1', () => {
         mockUserModel.verify()
         mockUserModel.restore()
       })
-      mocha.it('should list an error on /users GET when db request failed', (done) => {
+      it('should list an error on /users GET when db request failed', (done) => {
         chai.request(server)
           .get('/v1/users')
           .end((err, res) => {
@@ -81,8 +81,8 @@ mocha.describe('Users API v1', () => {
       })
     })
   })
-  mocha.describe('GET /users/:user_id', () => {
-    mocha.it('should list a SINGLE user on /users/:user_id GET', (done) => {
+  describe('GET /users/:user_id', () => {
+    it('should list a SINGLE user on /users/:user_id GET', (done) => {
       chai.request(server)
         .get('/v1/users/57fe2450916165b0b8b20be2')
         .end((err, res) => {
@@ -94,7 +94,7 @@ mocha.describe('Users API v1', () => {
           done()
         })
     })
-    mocha.it('should list an error on /users/:undefined_id GET', (done) => {
+    it('should list an error on /users/:undefined_id GET', (done) => {
       chai.request(server)
         .get('/v1/users/57fe2450906165b0b8b20be2')
         .end((err, res) => {
@@ -106,7 +106,7 @@ mocha.describe('Users API v1', () => {
           done()
         })
     })
-    mocha.it('should list an error on /users/:invalid_id GET', (done) => {
+    it('should list an error on /users/:invalid_id GET', (done) => {
       chai.request(server)
         .get('/v1/users/57')
         .end((err, res) => {
@@ -119,7 +119,7 @@ mocha.describe('Users API v1', () => {
         })
     })
   })
-  mocha.describe('POST /users', () => {
+  describe('POST /users', () => {
     let stub
     mocha.beforeEach((done) => {
       stub = sinon.stub(sendEmail.client, 'sendEmail').yields(null)
@@ -129,7 +129,7 @@ mocha.describe('Users API v1', () => {
       stub.restore()
       done()
     })
-    mocha.it('should add a SINGLE user on /users POST', (done) => {
+    it('should add a SINGLE user on /users POST', (done) => {
       chai.request(server)
         .post('/v1/users')
         .send({
@@ -145,7 +145,7 @@ mocha.describe('Users API v1', () => {
           done()
         })
     })
-    mocha.it('should list an error on /users POST', (done) => {
+    it('should list an error on /users POST', (done) => {
       chai.request(server)
         .post('/v1/users')
         .send({
@@ -161,8 +161,8 @@ mocha.describe('Users API v1', () => {
         })
     })
   })
-  mocha.describe('PUT /users/:user_id', () => {
-    mocha.it('should update a SINGLE blob on /users/:user_id PUT', (done) => {
+  describe('PUT /users/:user_id', () => {
+    it('should update a SINGLE blob on /users/:user_id PUT', (done) => {
       chai.request(server)
         .put('/v1/users/57fe2450916165b0b8b20be2')
         .set('Authorization', accessToken)
@@ -185,7 +185,7 @@ mocha.describe('Users API v1', () => {
           done()
         })
     })
-    mocha.it('should list an error on /users/:user_id PUT when data is invalid', (done) => {
+    it('should list an error on /users/:user_id PUT when data is invalid', (done) => {
       chai.request(server)
         .put('/v1/users/57fe2450916165b0b8b20be2')
         .set('Authorization', accessToken)
@@ -203,7 +203,7 @@ mocha.describe('Users API v1', () => {
           done()
         })
     })
-    mocha.it('should list an error on /users/:user_id PUT when try to update other users', (done) => {
+    it('should list an error on /users/:user_id PUT when try to update other users', (done) => {
       chai.request(server)
         .put('/v1/users/57fe2450916165b0b8b20be3')
         .set('Authorization', accessToken)
@@ -220,8 +220,8 @@ mocha.describe('Users API v1', () => {
         })
     })
   })
-  mocha.describe('PATCH /users/:user_id', () => {
-    mocha.it('should update a SINGLE blob on /users/:user_id PATCH', (done) => {
+  describe('PATCH /users/:user_id', () => {
+    it('should update a SINGLE blob on /users/:user_id PATCH', (done) => {
       chai.request(server)
         .patch('/v1/users/57fe2450916165b0b8b20be2')
         .set('Authorization', accessToken)
@@ -244,7 +244,7 @@ mocha.describe('Users API v1', () => {
           done()
         })
     })
-    mocha.it('should list an error on /users/:user_id PATCH when data is invalid', (done) => {
+    it('should list an error on /users/:user_id PATCH when data is invalid', (done) => {
       chai.request(server)
         .patch('/v1/users/57fe2450916165b0b8b20be2')
         .set('Authorization', accessToken)
@@ -262,7 +262,7 @@ mocha.describe('Users API v1', () => {
           done()
         })
     })
-    mocha.it('should list an error on /users/:user_id PATCH when try to update other users', (done) => {
+    it('should list an error on /users/:user_id PATCH when try to update other users', (done) => {
       chai.request(server)
         .patch('/v1/users/57fe2450916165b0b8b20be3')
         .set('Authorization', accessToken)
@@ -279,8 +279,8 @@ mocha.describe('Users API v1', () => {
         })
     })
   })
-  mocha.describe('DELETE /users/:user_id', () => {
-    mocha.it('should delete a SINGLE user on /users/:user_id DELETE', (done) => {
+  describe('DELETE /users/:user_id', () => {
+    it('should delete a SINGLE user on /users/:user_id DELETE', (done) => {
       chai.request(server)
         .delete('/v1/users/57fe2450916165b0b8b20be3')
         .set('Authorization', adminAccessToken)
@@ -291,7 +291,7 @@ mocha.describe('Users API v1', () => {
           done()
         })
     })
-    mocha.it('should list an error on /users/:invalid_id DELETE', (done) => {
+    it('should list an error on /users/:invalid_id DELETE', (done) => {
       chai.request(server)
         .delete('/v1/users/1')
         .set('Authorization', adminAccessToken)
@@ -304,7 +304,7 @@ mocha.describe('Users API v1', () => {
           done()
         })
     })
-    mocha.it('should list an error on /users/:user_id with db error DELETE', (done) => {
+    it('should list an error on /users/:user_id with db error DELETE', (done) => {
       const mock = sinon.mock(userModel)
       mock.expects('findByIdAndRemove').returns(new Promise((resolve, reject) => reject(new Error())))
       chai.request(server)
@@ -321,7 +321,7 @@ mocha.describe('Users API v1', () => {
           done()
         })
     })
-    mocha.it('should list an error on /users/:user_id, accessToken is not admin DELETE', (done) => {
+    it('should list an error on /users/:user_id, accessToken is not admin DELETE', (done) => {
       chai.request(server)
         .delete('/v1/users/57fe2450916165b0b8b20be2')
         .set('Authorization', accessToken)
@@ -334,7 +334,7 @@ mocha.describe('Users API v1', () => {
           done()
         })
     })
-    mocha.it('should list an error on /users/:user_id, without accessToken DELETE', (done) => {
+    it('should list an error on /users/:user_id, without accessToken DELETE', (done) => {
       chai.request(server)
         .delete('/v1/users/57fe2450916165b0b8b20be2')
         .end((err, res) => {

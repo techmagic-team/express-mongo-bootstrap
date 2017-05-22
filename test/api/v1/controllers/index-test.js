@@ -3,15 +3,15 @@
 const chai = require('chai')
 const chaiHttp = require('chai-http')
 const server = require('../../../../app/index')
-const mocha = require('mocha')
+
 const expect = chai.expect
 const should = require('chai').should()
 chai.should()
 chai.use(chaiHttp)
 
-mocha.describe('API v1', () => {
-  mocha.describe('GET /v1', () => {
-    mocha.it('should list version on / GET', (done) => {
+describe('API v1', () => {
+  describe('GET /v1', () => {
+    it('should list version on / GET', (done) => {
       chai.request(server)
         .get('/v1')
         .end((err, res) => {
