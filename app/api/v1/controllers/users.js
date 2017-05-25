@@ -133,7 +133,6 @@ router.delete('/:user_id',
   passportMiddleware.checkAuthToken,
   passportMiddleware.checkPermissions('users:fullAccess'),
   (req, res, next) => {
-    if (res.locals.user.role !== 1) return next(errorHelper.forbidden())
     return daoUser.delete(req.user._id)
       .then(() => {
         res.sendStatus(204)

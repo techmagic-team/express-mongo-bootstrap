@@ -8,7 +8,6 @@
       "lastName": "Doe",
       "email": "john.doe@awesome.com",
       "password": "qwerty",
-      "role": 1,
       "groups": ["58133d8488dbe7d5b0bfb745"],
       "permissions": ["users:fullAccess"]
     },
@@ -17,16 +16,14 @@
       "firstName": "Jon",
       "lastName": "Doe",
       "email": "john.doe1@awesome.com",
-      "password": "qwerty",
-      "role": 0
+      "password": "qwerty"
     },
     {
       "_id": "57fe2450916165b0b8b20be3",
       "firstName": "Jon",
       "lastName": "Doe",
       "email": "john.doe2@awesome.com",
-      "password": "qwerty",
-      "role": 0
+      "password": "qwerty"
     }
   ]
 }

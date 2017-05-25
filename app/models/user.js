@@ -21,7 +21,6 @@ const user = new Schema({
     default: ''
   },
   password: {type: String, default: ''},
-  role: {type: Number, default: 0},
   permissions: [String],
   groups: [{ type: Schema.Types.ObjectId, ref: 'Groups' }]
 }, {
