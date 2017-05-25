@@ -13,11 +13,20 @@ const mongooseHelper = require('./../../app/utils/mongooseHelper')
 describe('mongooseHelper:', () => {
   describe('#seedDatabase()', () => {
     mocha.before((done) => {
-      const seedsPath = path.join(__dirname, '../../app/seeds')
-      mongooseHelper.seedDatabase(seedsPath, null, (err) => {
-        expect(err).to.not.exist
-        done()
-      })
+      const seedsPath = path.join(__dirname, './../../app/seeds')
+      const modelsPath = path.join(__dirname, './../../app/models')
+      const options = {
+        seeds: seedsPath,
+        models: modelsPath,
+        mongoose: mongoose
+      }
+      mongooseHelper.seedDatabase(options)
+        .then(() => {
+          done()
+        })
+        .catch((err) => {
+          done(err)
+        })
     })
     it('should seed database', (done) => {
       mongoose.model('user').count((err, count) => {

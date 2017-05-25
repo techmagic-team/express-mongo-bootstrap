@@ -1,6 +1,6 @@
 'use strict'
 
-const userModel = require('./../../../models/user.js')
+const userModel = require('./../../../models/user')
 const errorHelper = require('./../../../utils/errorHelper')
 const passportUtil = require('./../../../utils/passport')
 module.exports.create = (data) => {
