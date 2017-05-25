@@ -1,8 +1,8 @@
 'use strict'
 
+const server = require('../../../../app/index')
 const chai = require('chai')
 const chaiHttp = require('chai-http')
-const server = require('../../../../app/index')
 
 chai.should()
 chai.use(chaiHttp)

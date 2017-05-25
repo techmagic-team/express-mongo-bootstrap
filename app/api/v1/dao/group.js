@@ -1,6 +1,6 @@
 'use strict'
 
-const groupModel = require('./../../../models/group.js')
+const groupModel = require('./../../../models/group')
 const errorHelper = require('./../../../utils/errorHelper')
 module.exports.create = (data) => {
   return groupModel.create(data)
@@ -12,14 +12,13 @@ module.exports.create = (data) => {
     })
 }
 
-module.exports.findAll = (options) => {
+module.exports.findAll = (options = {}) => {
   const q = {}
   if (options.ids) {
     q._id = {
       $in: options.ids
     }
   }
-
   return groupModel.find(q)
     .then((data) => {
       return data

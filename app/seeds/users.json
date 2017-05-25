@@ -24,6 +24,13 @@
       "lastName": "Doe",
       "email": "john.doe2@awesome.com",
       "password": "qwerty"
+    },
+    {
+      "_id": "57fe2450916165b0b8b20be4",
+      "firstName": "Jon",
+      "lastName": "Doe",
+      "email": "john.doe3@awesome.com",
+      "password": "qwerty"
     }
   ]
 }

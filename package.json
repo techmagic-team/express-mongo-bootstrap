@@ -30,10 +30,9 @@
   "homepage": "https://github.com/techmagic-team/express-mongo-bootstrap#readme",
   "dependencies": {
     "async": "^2.4.0",
-    "aws-sdk": "^2.57.0",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
-    "joi": "^9.2.0",
+    "joi": "^10.5.0",
     "jsonwebtoken": "^7.4.0",
     "mongoose": "^4.10.2",
     "morgan": "^1.8.2",
@@ -41,8 +40,7 @@
     "pug": "^2.0.0-rc.1"
   },
   "devDependencies": {
-    "apidoc": "^0.16.1",
-    "async": "^2.4.1",
+    "apidoc": "^0.17.6",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
     "eslint": "^3.19.0",
@@ -53,8 +51,6 @@
     "eslint-plugin-standard": "^3.0.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.4.2",
-    "mongodb": "^2.2.27",
-    "sinon": "^1.17.7",
-    "underscore": "^1.8.3"
+    "sinon": "^2.3.1"
   }
 }

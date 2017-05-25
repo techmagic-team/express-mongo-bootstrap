@@ -22,8 +22,10 @@ const mongoose = connection.getMongoose()
 if (_config.seed) {
   const seedsPath = path.join(__dirname, 'seeds')
   const mongooseHelper = require('./utils/mongooseHelper')
-  mongooseHelper.dropCollections(mongoose)
-  mongooseHelper.seedDatabase(seedsPath, mongoose)
+  mongooseHelper.seedDatabase(seedsPath, mongoose).catch((err) => {
+    console.error(err)
+    process.exit(1)
+  })
 }
 
 // error-handler settings
