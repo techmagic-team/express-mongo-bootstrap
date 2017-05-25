@@ -6,7 +6,7 @@ chai.should()
 const dto = require('./../../../../app/api/v1/dto/user')
 
 describe('DTO User:', () => {
-  describe('#createAuthToken()', () => {
+  describe('#public()', () => {
     it('should return user', (done) => {
       const user = {
         _id: '_id',
@@ -24,7 +24,7 @@ describe('DTO User:', () => {
       done()
     })
   })
-  describe('#extractAuthToken()', () => {
+  describe('#public()', () => {
     it('should return user with null', (done) => {
       const user = {}
       const dtoUser = dto.public(user)

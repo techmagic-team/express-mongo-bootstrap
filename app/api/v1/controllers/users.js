@@ -58,7 +58,7 @@ router.get('/:user_id', (req, res, next) => {
  * @apiName CreateUser
  * @apiGroup users
  *
- * @apiParam {String} email Optional email.
+ * @apiParam {String} email email.
  * @apiParam {String} [firstName] Optional firstName.
  * @apiParam {String} [lastName] Optional lastName.
  * @apiParam {String} [password] Optional password.
