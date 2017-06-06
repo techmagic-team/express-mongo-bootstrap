@@ -1,6 +1,6 @@
 'use strict'
 
-const server = require('../../../../app/index')
+const server = require('../../../index')
 const chai = require('chai')
 const chaiHttp = require('chai-http')
 const mocha = require('mocha')

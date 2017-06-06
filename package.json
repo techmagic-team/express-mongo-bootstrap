@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./app/",
-    "test": "npm run seeddb && NODE_ENV=test ./node_modules/.bin/mocha test/** --recursive",
+    "test": "npm run seeddb && NODE_ENV=test ./node_modules/.bin/mocha app/api/** --recursive",
     "seeddb": "NODE_ENV=test node ./app/seeddb.js",
     "cover": "NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/** --recursive",
     "jslinter": "./node_modules/.bin/eslint app/** test/**",

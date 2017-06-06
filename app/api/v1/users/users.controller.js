@@ -2,12 +2,12 @@
 
 const express = require('express')
 const router = express.Router()
-const daoUser = require('./../dao/user')
-const dtoUser = require('./../dto/user')
-const errorHelper = require('./../../../utils/errorHelper')
-const passportMiddleware = require('./../middlewares/passport')
-const userMiddleware = require('./../middlewares/user')
-const sendEmailUtil = require('./../../../utils/sendEmail')
+const daoUser = require('./user.dao')
+const dtoUser = require('./user.dto')
+const errorHelper = require('../../../utils/errorHelper')
+const passportMiddleware = require('../middlewares/passport')
+const userMiddleware = require('./user.middlreware')
+const sendEmailUtil = require('../../../utils/sendEmail')
 
 router.param('user_id', function (req, res, next, id) {
   // try to get the user details from the User model and attach it to the request object

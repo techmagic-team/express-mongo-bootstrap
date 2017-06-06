@@ -1,10 +1,10 @@
 'use strict'
 
-const daoUser = require('./../dao/user')
-const daoGroups = require('./../dao/group')
+const daoUser = require('./../users/user.dao')
+const daoGroups = require('./../groups/group.dao')
 
-const errorHelper = require('./../../../utils/errorHelper')
-const passportUtil = require('./../../../utils/passport')
+const errorHelper = require('../../../utils/errorHelper')
+const passportUtil = require('../../../utils/passport')
 
 module.exports.concatUserPermissions = (user) => {
   return daoGroups.findAll({ids: user.groups})

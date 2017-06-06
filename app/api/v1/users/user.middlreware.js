@@ -1,7 +1,7 @@
 'use strict'
 
 const joi = require('joi')
-const errorHelper = require('./../../../utils/errorHelper')
+const errorHelper = require('../../../utils/errorHelper')
 
 /**
  * @apiDefine updateUserParams

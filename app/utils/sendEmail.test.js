@@ -6,7 +6,7 @@ const sinon = require('sinon')
 
 chai.should()
 
-const sendEmail = require('./../../app/utils/sendEmail')
+const sendEmail = require('./sendEmail')
 
 describe('sendEmail:', () => {
   const user = {

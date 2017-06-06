@@ -3,8 +3,8 @@
 const chai = require('chai')
 chai.should()
 
-const passportMiddleware = require('./../../../../app/api/v1/middlewares/passport')
-const passportUtil = require('./../../../../app/utils/passport')
+const passportMiddleware = require('./passport')
+const passportUtil = require('../../../utils/passport')
 
 describe('Middleware passport:', () => {
   describe('#checkAuthToken()', () => {

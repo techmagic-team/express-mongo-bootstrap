@@ -1,8 +1,8 @@
 'use strict'
 
 const mongoose = require('mongoose')
-const passportUtil = require('./../utils/passport')
-const validate = require('./../config/validate')
+const passportUtil = require('../utils/passport')
+const validate = require('../config/validate')
 
 const Schema = mongoose.Schema
 /**

@@ -12,7 +12,7 @@ app.set('env', env)
 require('./config/express')(app)
 
 // Routing
-app.use('/v1', require('./api/v1/controllers'))
+app.use('/v1', require('./api/v1/index'))
 
 // db connection and settings
 const connection = require('./config/connection')

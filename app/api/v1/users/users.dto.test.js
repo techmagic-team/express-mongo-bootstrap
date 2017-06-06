@@ -3,7 +3,7 @@
 const chai = require('chai')
 chai.should()
 
-const dto = require('./../../../../app/api/v1/dto/user')
+const dto = require('./user.dto')
 
 describe('DTO User:', () => {
   describe('#public()', () => {

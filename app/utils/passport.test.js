@@ -4,7 +4,7 @@ const chai = require('chai')
 
 chai.should()
 
-const authToken = require('./../../app/utils/passport')
+const authToken = require('./passport')
 
 describe('authToken:', () => {
   let authTokenString

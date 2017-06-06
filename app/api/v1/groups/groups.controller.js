@@ -2,9 +2,9 @@
 
 const express = require('express')
 const router = express.Router()
-const daoGroups = require('./../dao/group')
-const dtoGroups = require('./../dto/group')
-const passportMiddleware = require('./../middlewares/passport')
+const daoGroups = require('./group.dao')
+const dtoGroups = require('./group.dto')
+const passportMiddleware = require('../middlewares/passport')
 
 /**
  * @api {get} /groups GET groups

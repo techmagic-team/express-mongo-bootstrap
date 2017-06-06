@@ -8,7 +8,7 @@ const mongoose = require('mongoose')
 const expect = chai.expect
 chai.use(chaiHttp)
 
-const mongooseHelper = require('./../../app/utils/mongooseHelper')
+const mongooseHelper = require('./mongooseHelper')
 
 describe('mongooseHelper:', () => {
   describe('#seedDatabase()', () => {

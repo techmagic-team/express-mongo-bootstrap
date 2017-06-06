@@ -6,7 +6,7 @@ const chaiHttp = require('chai-http')
 chai.should()
 chai.use(chaiHttp)
 
-const errorHelper = require('./../../app/utils/errorHelper')
+const errorHelper = require('./errorHelper')
 
 describe('errorHelper:', () => {
   describe('#serverError()', () => {

@@ -1,10 +1,9 @@
 'use strict'
 
-const userModel = require('./../../../models/user')
-const errorHelper = require('./../../../utils/errorHelper')
-const passportUtil = require('./../../../utils/passport')
+const groupModel = require('../../../models/group')
+const errorHelper = require('../../../utils/errorHelper')
 module.exports.create = (data) => {
-  return userModel.create(data)
+  return groupModel.create(data)
     .then((data) => {
       return data
     })
@@ -13,8 +12,14 @@ module.exports.create = (data) => {
     })
 }
 
-module.exports.findAll = () => {
-  return userModel.find()
+module.exports.findAll = (options = {}) => {
+  const q = {}
+  if (options.ids) {
+    q._id = {
+      $in: options.ids
+    }
+  }
+  return groupModel.find(q)
     .then((data) => {
       return data
     })
@@ -24,7 +29,7 @@ module.exports.findAll = () => {
 }
 
 module.exports.findOne = (id) => {
-  return userModel.findById(id)
+  return groupModel.findById(id)
     .then((data) => {
       return data
     })
@@ -34,8 +39,7 @@ module.exports.findOne = (id) => {
 }
 
 module.exports.update = (id, data) => {
-  if (data.password) data.password = passportUtil.encryptPassword(data.password)
-  return userModel.findByIdAndUpdate(id, data, {new: true, overwrite: true, runValidators: true})
+  return groupModel.findByIdAndUpdate(id, data, {new: true, overwrite: true, runValidators: true})
     .then((data) => {
       return data
     })
@@ -45,8 +49,7 @@ module.exports.update = (id, data) => {
 }
 
 module.exports.modify = (id, data) => {
-  if (data.password) data.password = passportUtil.encryptPassword(data.password)
-  return userModel.findByIdAndUpdate(id, {$set: data}, {new: true, runValidators: true})
+  return groupModel.findByIdAndUpdate(id, {$set: data}, {new: true, runValidators: true})
     .then((data) => {
       return data
     })
@@ -56,7 +59,7 @@ module.exports.modify = (id, data) => {
 }
 
 module.exports.delete = (id) => {
-  return userModel.findByIdAndRemove(id)
+  return groupModel.findByIdAndRemove(id)
     .catch((err) => {
       throw errorHelper.serverError(err)
     })
