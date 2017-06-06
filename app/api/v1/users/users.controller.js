@@ -2,11 +2,11 @@
 
 const express = require('express')
 const router = express.Router()
-const daoUser = require('./user.dao')
-const dtoUser = require('./user.dto')
+const daoUser = require('./users.dao')
+const dtoUser = require('./users.dto')
 const errorHelper = require('../../../utils/errorHelper')
 const passportMiddleware = require('../middlewares/passport')
-const userMiddleware = require('./user.middlreware')
+const userMiddleware = require('./users.middlreware')
 const sendEmailUtil = require('../../../utils/sendEmail')
 
 router.param('user_id', function (req, res, next, id) {

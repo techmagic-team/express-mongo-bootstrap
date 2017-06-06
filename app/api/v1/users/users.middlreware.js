@@ -3,13 +3,6 @@
 const joi = require('joi')
 const errorHelper = require('../../../utils/errorHelper')
 
-/**
- * @apiDefine updateUserParams
- * @apiParam {String} [email] Optional email.
- * @apiParam {String} [firstName] Optional firstName.
- * @apiParam {String} [lastName] Optional lastName.
- * @apiParam {String} [password] Optional password.
- */
 module.exports.validateUpdate = (req, res, next) => {
   const schema = joi.object().keys({
     email: joi.string().regex(/^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,8})+$/).min(6).max(45),

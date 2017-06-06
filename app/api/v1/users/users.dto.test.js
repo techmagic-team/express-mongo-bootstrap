@@ -3,7 +3,7 @@
 const chai = require('chai')
 chai.should()
 
-const dto = require('./user.dto')
+const dto = require('./users.dto')
 
 describe('DTO User:', () => {
   describe('#public()', () => {

@@ -2,8 +2,8 @@
 
 const express = require('express')
 const router = express.Router()
-const daoAuth = require('../dao/auth.dao')
-const dtoUser = require('../users/user.dto')
+const daoAuth = require('./auth.dao')
+const dtoUser = require('../users/users.dto')
 const errorHelper = require('../../../utils/errorHelper')
 const passportUtil = require('../../../utils/passport')
 

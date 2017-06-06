@@ -2,8 +2,8 @@
 
 const express = require('express')
 const router = express.Router()
-const daoGroups = require('./group.dao')
-const dtoGroups = require('./group.dto')
+const daoGroups = require('./groups.dao')
+const dtoGroups = require('./groups.dto')
 const passportMiddleware = require('../middlewares/passport')
 
 router.get('/',

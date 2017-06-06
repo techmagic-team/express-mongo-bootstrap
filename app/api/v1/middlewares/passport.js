@@ -1,7 +1,7 @@
 'use strict'
 
-const daoUser = require('./../users/user.dao')
-const daoGroups = require('./../groups/group.dao')
+const daoUser = require('../users/users.dao')
+const daoGroups = require('../groups/groups.dao')
 
 const errorHelper = require('../../../utils/errorHelper')
 const passportUtil = require('../../../utils/passport')
