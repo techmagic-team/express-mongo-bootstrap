@@ -6,11 +6,6 @@ const daoGroups = require('./group.dao')
 const dtoGroups = require('./group.dto')
 const passportMiddleware = require('../middlewares/passport')
 
-/**
- * @api {get} /groups GET groups
- * @apiName GetGroups
- * @apiGroup groups
- */
 router.get('/',
   passportMiddleware.checkAuthToken,
   passportMiddleware.checkPermissions('groups:fullAccess'),
@@ -24,17 +19,6 @@ router.get('/',
       })
   })
 
-/**
- * @api {post} /groups POST groups
- * @apiName CreateGroup
- * @apiGroup groups
- *
- * @apiParam {String} name Group name.
- * @apiParam {String} [firstName] Optional firstName.
- * @apiParam {String} [lastName] Optional lastName.
- * @apiParam {String} [password] Optional password.
- *
- */
 router.post('/',
   passportMiddleware.checkAuthToken,
   passportMiddleware.checkPermissions('groups:fullAccess'),

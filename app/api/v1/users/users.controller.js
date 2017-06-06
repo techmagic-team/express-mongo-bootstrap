@@ -21,13 +21,6 @@ router.param('user_id', function (req, res, next, id) {
     })
 })
 
-/**
- * @api {get} /users GET users
- * @apiName GetUsers
- * @apiGroup users
- *
- * @apiUse dtoUsersPublic
- */
 router.get('/', (req, res, next) => {
   return daoUser.findAll()
     .then((users) => {
@@ -39,32 +32,11 @@ router.get('/', (req, res, next) => {
     })
 })
 
-/**
- * @api {get} /users/:user_id Request User information
- * @apiName GetUser
- * @apiGroup users
- *
- * @apiParam {Number} user_id Users unique ID.
- *
- * @apiUse dtoUserPublic
- */
 router.get('/:user_id', (req, res, next) => {
   if (!req.user) next(errorHelper.notFound())
   res.json(dtoUser.public(req.user))
 })
 
-/**
- * @api {post} /users Create User
- * @apiName CreateUser
- * @apiGroup users
- *
- * @apiParam {String} email email.
- * @apiParam {String} [firstName] Optional firstName.
- * @apiParam {String} [lastName] Optional lastName.
- * @apiParam {String} [password] Optional password.
- *
- * @apiUse dtoUserPublic
- */
 router.post('/', (req, res, next) => {
   return daoUser.create(req.body)
     .then((user) => {
@@ -79,15 +51,6 @@ router.post('/', (req, res, next) => {
     })
 })
 
-/**
- * @api {put} /users/:user_id Update User Doc
- * @apiName UpdateUser
- * @apiGroup users
- * @apiPermission user
- *
- * @apiUse updateUserParams
- * @apiUse dtoUserPublic
- */
 router.put('/:user_id', passportMiddleware.checkAuthToken, userMiddleware.validateUpdate, (req, res, next) => {
   if (!req.user._id.equals(res.locals.user._id)) return next(errorHelper.forbidden())
   return daoUser.update(req.user._id, req.body)
@@ -99,15 +62,6 @@ router.put('/:user_id', passportMiddleware.checkAuthToken, userMiddleware.valida
     })
 })
 
-/**
- * @api {patch} /users/:user_id Update User information
- * @apiName UpdatePartialUser
- * @apiGroup users
- * @apiPermission user
- *
- * @apiUse updateUserParams
- * @apiUse dtoUserPublic
- */
 router.patch('/:user_id', passportMiddleware.checkAuthToken, userMiddleware.validateUpdate, (req, res, next) => {
   if (!req.user._id.equals(res.locals.user._id)) return next(errorHelper.forbidden())
   return daoUser.modify(req.user._id, req.body)
@@ -119,16 +73,6 @@ router.patch('/:user_id', passportMiddleware.checkAuthToken, userMiddleware.vali
     })
 })
 
-/**
- * @api {delete} /users/:user_id Delete User
- * @apiName DeleteUser
- * @apiGroup users
- * @apiPermission user
- *
- * @apiParam {Number} user_id Users unique ID.
- *
- * @apiSuccess (204).
- */
 router.delete('/:user_id',
   passportMiddleware.checkAuthToken,
   passportMiddleware.checkPermissions('users:fullAccess'),
