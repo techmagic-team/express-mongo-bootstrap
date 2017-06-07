@@ -1,7 +1,6 @@
 'use strict'
 
-const express = require('express')
-const router = express.Router()
+const router = require('express').Router()
 const daoUser = require('./users.dao')
 const dtoUser = require('./users.dto')
 const errorHelper = require('../../../utils/errorHelper')
