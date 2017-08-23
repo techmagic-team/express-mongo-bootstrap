@@ -19,3 +19,8 @@ module.exports.validateUpdate = (req, res, next) => {
     return next()
   })
 }
+
+module.exports.checkOwner = (req, res, next) => {
+  if (!req.user._id.equals(res.locals.user._id)) return next(errorHelper.forbidden())
+  return next()
+}

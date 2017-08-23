@@ -6,45 +6,43 @@ const daoGroups = require('../groups/groups.dao')
 const errorHelper = require('../../../utils/errorHelper')
 const passportUtil = require('../../../utils/passport')
 
-module.exports.concatUserPermissions = (user) => {
-  return daoGroups.findAll({ids: user.groups})
-    .then((groups) => {
-      groups.forEach((group) => {
-        user.permissions = user.permissions.concat(group.permissions)
-      })
-      user.permissions = [...new Set(user.permissions)]
-      return user
+module.exports.concatUserPermissions = async (user) => {
+  try {
+    const groups = await daoGroups.findAll({ids: user.groups})
+
+    groups.forEach((group) => {
+      user.permissions = user.permissions.concat(group.permissions)
     })
-    .catch((err) => {
-      throw errorHelper.serverError(err)
-    })
+    user.permissions = [...new Set(user.permissions)]
+    return user
+  } catch (e) {
+    throw errorHelper.serverError(e)
+  }
 }
 
-module.exports.checkAuthToken = (req, res, next) => {
-  const token = req.headers.authorization
-  if (!token) {
-    return next(errorHelper.forbidden())
+module.exports.checkAuthToken = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization
+    if (!token) {
+      return next(errorHelper.forbidden())
+    }
+    const decoded = await passportUtil.extractAuthToken(token)
+
+    if (!decoded || !decoded.userId) {
+      throw errorHelper.forbidden()
+    }
+    let user = await daoUser.findOne(decoded.userId)
+
+    if (user === null) {
+      throw errorHelper.forbidden()
+    }
+    user = await this.concatUserPermissions(user)
+
+    res.locals.user = user
+    return next()
+  } catch (e) {
+    return next(e)
   }
-  return passportUtil.extractAuthToken(token)
-    .then((decoded) => {
-      if (!decoded || !decoded.userId) {
-        throw errorHelper.forbidden()
-      }
-      return daoUser.findOne(decoded.userId)
-    })
-    .then((user) => {
-      if (user === null) {
-        throw errorHelper.forbidden()
-      }
-      return this.concatUserPermissions(user)
-    })
-    .then((user) => {
-      res.locals.user = user
-      return next()
-    })
-    .catch((err) => {
-      return next(err)
-    })
 }
 
 module.exports.checkPermissions = (required) => {
