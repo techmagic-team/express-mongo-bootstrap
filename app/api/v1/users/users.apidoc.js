@@ -22,7 +22,7 @@
  */
 
 /**
- * @api {get} /users/:user_id Request User information
+ * @api {get} /users/:user_id GET User information
  * @apiName GetUser
  * @apiGroup users
  *
@@ -36,10 +36,17 @@
  * @apiName CreateUser
  * @apiGroup users
  *
+ *
  * @apiParam {String} email email.
  * @apiParam {String} [firstName] Optional firstName.
  * @apiParam {String} [lastName] Optional lastName.
  * @apiParam {String} [password] Optional password.
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *  {
+ *    "Content-Type": "application/json",
+ *    "Authorization": "[accessToken]"
+ *  }
  *
  * @apiUse dtoUserPublic
  */
@@ -49,6 +56,11 @@
  * @apiName UpdateUser
  * @apiGroup users
  * @apiPermission user
+ * @apiHeaderExample {json} Header-Example:
+ *  {
+ *    "Content-Type": "application/json",
+ *    "Authorization": "[accessToken]"
+ *  }
  *
  * @apiUse updateUserParams
  * @apiUse dtoUserPublic
@@ -60,6 +72,12 @@
  * @apiGroup users
  * @apiPermission user
  *
+ * @apiHeaderExample {json} Header-Example:
+ *  {
+ *    "Content-Type": "application/json",
+ *    "Authorization": "[accessToken]"
+ *  }
+ *
  * @apiUse updateUserParams
  * @apiUse dtoUserPublic
  */
@@ -69,6 +87,13 @@
  * @apiName DeleteUser
  * @apiGroup users
  * @apiPermission user
+ *
+ *
+ * @apiHeaderExample {json} Header-Example:
+ *  {
+ *    "Content-Type": "application/json",
+ *    "Authorization": "[accessToken]"
+ *  }
  *
  * @apiParam {Number} user_id Users unique ID.
  *

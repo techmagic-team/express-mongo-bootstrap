@@ -4,7 +4,7 @@
   "description": "Express app / mongodb",
   "private": true,
   "engine": {
-    "node": ">=8.1.2"
+    "node": ">=8.4.0"
   },
   "main": "app/index.js",
   "scripts": {
@@ -37,7 +37,7 @@
     "express": "^4.15.4",
     "joi": "^10.5.2",
     "jsonwebtoken": "^7.4.3",
-    "mongoose": "^4.11.7",
+    "mongoose": "^4.10.8",
     "morgan": "^1.8.2",
     "node-ses": "^2.0.5",
     "pug": "^2.0.0-rc.1"
