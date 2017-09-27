@@ -1,0 +1,5 @@
+{
+  "PASSPORT_ERROR_USER_NOT_FOUND": "User object was not found. Check your configuration.",
+  "PASSPORT_ERROR_NO_PERMISSION": "Could not find permissions for user. Bad configuration?",
+  "PASSPORT_ERROR_PERMISSION_FORMAT": "Permissions should be an Array. Bad format?"
+}

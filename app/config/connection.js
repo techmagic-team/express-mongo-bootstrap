@@ -8,7 +8,7 @@ mongoose.set('debug', _config.debug)
 mongoose.Promise = global.Promise
 
 module.exports.connect = (cb) => {
-  return mongoose.connect(_config.database, cb)
+  return mongoose.connect(_config.database, {useMongoClient: true}, cb)
 }
 
 module.exports.disconnect = () => {

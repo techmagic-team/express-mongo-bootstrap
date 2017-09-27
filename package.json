@@ -4,7 +4,7 @@
   "description": "Express app / mongodb",
   "private": true,
   "engine": {
-    "node": ">=8.1.2"
+    "node": "8.1.4"
   },
   "main": "app/index.js",
   "scripts": {
@@ -33,27 +33,28 @@
   },
   "homepage": "https://github.com/techmagic-team/express-mongo-bootstrap#readme",
   "dependencies": {
-    "body-parser": "^1.17.1",
-    "express": "^4.15.4",
-    "joi": "^10.5.2",
-    "jsonwebtoken": "^7.4.3",
-    "mongoose": "^4.11.7",
-    "morgan": "^1.8.2",
+    "body-parser": "^1.18.2",
+    "express": "^4.15.5",
+    "i18n": "^0.8.3",
+    "joi": "^11.1.1",
+    "jsonwebtoken": "^8.0.1",
+    "mongoose": "^4.11.13",
+    "morgan": "^1.9.0",
     "node-ses": "^2.0.5",
-    "pug": "^2.0.0-rc.1"
+    "pug": "^2.0.0-rc.4"
   },
   "devDependencies": {
     "apidoc": "^0.17.6",
-    "chai": "^4.1.1",
+    "chai": "^4.1.2",
     "chai-http": "^3.0.0",
-    "eslint": "^4.5.0",
+    "eslint": "^4.7.2",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-node": "^5.1.1",
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "istanbul": "^0.4.5",
-    "mocha": "^3.5.0",
-    "sinon": "^3.2.1"
+    "mocha": "^3.5.3",
+    "sinon": "^4.0.0"
   }
 }
