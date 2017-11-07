@@ -4,7 +4,7 @@
   "description": "Express app / mongodb",
   "private": true,
   "engine": {
-    "node": "8.1.4"
+    "node": ">=8.4.0"
   },
   "main": "app/index.js",
   "scripts": {

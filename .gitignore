@@ -58,7 +58,7 @@ thumbs/
 _thumbs/
 */expressionengine/cache/*
 
-.idea
 .idea/
 
 apidoc/
+/package-lock.json
