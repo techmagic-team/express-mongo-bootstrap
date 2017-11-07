@@ -9,6 +9,16 @@ const app = express()
 // Bootstrap application settings
 app.set('env', env)
 
+// Setup localization
+const i18n = require('i18n')
+i18n.configure({
+  locales: ['en'],
+  directory: [__dirname, 'config/locales'].join(''),
+  defaultLocale: 'en',
+  updateFiles: false
+})
+app.use(i18n.init)
+
 require('./config/express')(app)
 
 // Routing

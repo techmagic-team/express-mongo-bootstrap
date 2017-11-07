@@ -51,13 +51,13 @@ module.exports.checkPermissions = (required) => {
     try {
       const user = res.locals.user
       if (!user) {
-        throw errorHelper.serverError('User object was not found. Check your configuration.')
+        throw errorHelper.serverError(req.__('PASSPORT_ERROR_USER_NOT_FOUND'))
       }
       if (!user.permissions) {
-        throw errorHelper.serverError('Could not find permissions for user. Bad configuration?')
+        throw errorHelper.serverError(req.__('PASSPORT_ERROR_NO_PERMISSION'))
       }
       if (!Array.isArray(required)) {
-        throw errorHelper.serverError('Permissions should be an Array. Bad format?')
+        throw errorHelper.serverError(req.__('PASSPORT_ERROR_PERMISSION_FORMAT'))
       }
       const sufficient = required.every(function (permission) {
         return user.permissions.indexOf(permission) !== -1
