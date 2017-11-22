@@ -1,17 +1,17 @@
 {
   "name": "express-mongo-bootstrap",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Express app / mongodb",
   "private": true,
   "engine": {
-    "node": ">=8.4.0"
+    "node": ">=8.9.1"
   },
   "main": "app/index.js",
   "scripts": {
     "start": "node ./app/",
-    "test": "npm run seeddb && NODE_ENV=test ./node_modules/.bin/mocha app/api/** --recursive",
+    "test": "npm run seeddb && NODE_ENV=test ./node_modules/.bin/mocha app/api/** --recursive --exit",
     "seeddb": "NODE_ENV=test node ./app/seeddb.js",
-    "cover": "npm run seeddb && NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec app/api/** --recursive",
+    "cover": "npm run seeddb && NODE_ENV=test ./node_modules/.bin/istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec app/api/** --recursive --exit",
     "jslinter": "./node_modules/.bin/eslint app/**",
     "apidoc": "./node_modules/apidoc/bin/apidoc -i app/ -o apidoc/",
     "postinstall": "cp git-hooks/pre-commit .git/hooks/ && chmod +x .git/hooks/pre-commit && npm run cover && npm run apidoc"
@@ -34,27 +34,27 @@
   "homepage": "https://github.com/techmagic-team/express-mongo-bootstrap#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "^4.15.5",
+    "express": "^4.16.2",
     "i18n": "^0.8.3",
-    "joi": "^11.1.1",
-    "jsonwebtoken": "^8.0.1",
-    "mongoose": "^4.11.13",
+    "joi": "^13.0.2",
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^4.13.4",
     "morgan": "^1.9.0",
     "node-ses": "^2.0.5",
-    "pug": "^2.0.0-rc.4"
+    "pug": "^0.1.0"
   },
   "devDependencies": {
     "apidoc": "^0.17.6",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
-    "eslint": "^4.7.2",
+    "eslint": "^4.11.0",
     "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-node": "^5.1.1",
-    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
     "istanbul": "^0.4.5",
-    "mocha": "^3.5.3",
-    "sinon": "^4.0.0"
+    "mocha": "^4.0.1",
+    "sinon": "^4.1.2"
   }
 }

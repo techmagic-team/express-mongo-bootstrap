@@ -28,4 +28,6 @@ if (_config.seed) {
       console.error(err)
       process.exit(1)
     })
+} else {
+  process.exit()
 }
